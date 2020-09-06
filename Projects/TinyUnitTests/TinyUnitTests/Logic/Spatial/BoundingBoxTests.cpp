@@ -52,12 +52,12 @@ void BoundingBoxTests::Run() {
         scene.AddComponent<LocalBoundingBox>(go);
         scene.AddComponent<WorldBoundingBox>(go);
         
-        //scene.GetComponent<WorldTransform>(go).world = Matrix3x3::CreateRotation(ToRadians(45));
-        //scene.GetComponent<LocalBoundingBox>(go).bounds = {{0,0}, {10,10}};
+        scene.GetComponent<WorldTransform>(go).world = rotate(mat4(1.0f), (float)ToRadians(45.0f), vec3(0.0f,0.0f,1.0f));
+        scene.GetComponent<LocalBoundingBox>(go).bounds = {{0,0,0}, {10.0f,10.0f,10.0f}};
         
         scene.Update();
         
-        const BoundingBox target = {{0,0,0},{sqrt(2.0f) * 10.0f, sqrt(2.0f) * 10.0f, sqrt(2.0f) * 10.0f}};
+        const BoundingBox target = {{0,0,0},{sqrt(2.0f) * 10.0f, sqrt(2.0f) * 10.0f, 10.0f}};
         
         auto bounds = scene.GetComponent<WorldBoundingBox>(go).bounds;
         
