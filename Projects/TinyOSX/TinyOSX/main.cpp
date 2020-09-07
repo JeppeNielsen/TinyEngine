@@ -15,7 +15,6 @@
 #include "HierarchySystem.hpp"
 #include "InputSystem.hpp"
 #include "PickableSystem.hpp"
-#include "LogicTests.hpp"
 
 using namespace Tiny;
 
@@ -53,6 +52,7 @@ SceneModifier<const ClickDeleter> {
         
         if (pickable.down.size()>0) {
             auto& pickEvent = pickable.down[0];
+            if (pickEvent.touch.index != 0) return;
             auto object = pickEvent.object;
             Modify([object] (Modifier& modifier) {
                 modifier.RemoveGameObject(object);
@@ -74,7 +74,7 @@ struct ClickScalerSystem : SystemChanged<const ClickScaler, const Pickable, Loca
     }
     
     void Update(const ClickScaler& scaler, const Pickable& pickable, LocalTransform& localTransform ) {
-        /*
+        
         for(auto& click : pickable.up) {
             if (click.touch.index == 0) {
                 localTransform.scale += scaler.amountToScale;
@@ -82,7 +82,7 @@ struct ClickScalerSystem : SystemChanged<const ClickScaler, const Pickable, Loca
                 localTransform.scale -= scaler.amountToScale;
             }
         }
-        */
+        
     }
     
 };
@@ -138,9 +138,6 @@ struct State : IState {
     
     void Initialize() override {
         
-        //Game::Tests::LogicTests logicTests;
-        //logicTests.Run();
-        
         scene = std::make_shared<Scene>(registry);
         scene->GetSystem<InputSystem>().SetDevice(device.Input.Device());
         scene->GetSystem<PickableSystem>().screenSize = device.Screen.Size;
@@ -163,7 +160,7 @@ struct State : IState {
         
         auto quad3 = CreateQuad({2.0f,0,0}, {1.0f,1.0f,0.0f}, false, quad2);
         
-         scene->AddComponent<Rotator>(quad2, 1.0f);
+        scene->AddComponent<Rotator>(quad2, 1.0f);
             
         
         for (int x=0; x<10; x++) {

@@ -15,17 +15,6 @@
 		729B7901250025A5000A2872 /* InputDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76CC250025A4000A2872 /* InputDevice.cpp */; };
 		729B7902250025A5000A2872 /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76CF250025A4000A2872 /* Engine.cpp */; };
 		729B7903250025A5000A2872 /* Window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 729B76D3250025A4000A2872 /* Window.mm */; };
-		729B7904250025A5000A2872 /* LogicTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76D7250025A4000A2872 /* LogicTests.cpp */; };
-		729B7905250025A5000A2872 /* HierarchicalTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76D9250025A4000A2872 /* HierarchicalTests.cpp */; };
-		729B7906250025A5000A2872 /* RenderSystemTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76DC250025A4000A2872 /* RenderSystemTests.cpp */; };
-		729B7907250025A5000A2872 /* OctreeSystemTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76E1250025A4000A2872 /* OctreeSystemTests.cpp */; };
-		729B7908250025A5000A2872 /* BoundingBoxTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76E3250025A4000A2872 /* BoundingBoxTests.cpp */; };
-		729B7909250025A5000A2872 /* SpatialTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76E6250025A4000A2872 /* SpatialTests.cpp */; };
-		729B790A250025A5000A2872 /* TestTaskRunner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76E9250025A4000A2872 /* TestTaskRunner.cpp */; };
-		729B790B250025A5000A2872 /* SceneTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76EC250025A4000A2872 /* SceneTests.cpp */; };
-		729B790C250025A5000A2872 /* TestComponentContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76ED250025A4000A2872 /* TestComponentContainer.cpp */; };
-		729B790D250025A5000A2872 /* TestGameObjectDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76EF250025A4000A2872 /* TestGameObjectDatabase.cpp */; };
-		729B790E250025A5000A2872 /* ECSTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76F1250025A4000A2872 /* ECSTests.cpp */; };
 		729B790F250025A5000A2872 /* Hierarchy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76F5250025A4000A2872 /* Hierarchy.cpp */; };
 		729B7910250025A5000A2872 /* HierarchySystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76F6250025A4000A2872 /* HierarchySystem.cpp */; };
 		729B7911250025A5000A2872 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76F9250025A4000A2872 /* Input.cpp */; };
@@ -86,28 +75,6 @@
 		729B76D2250025A4000A2872 /* OSXView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSXView.h; sourceTree = "<group>"; };
 		729B76D3250025A4000A2872 /* Window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Window.mm; sourceTree = "<group>"; };
 		729B76D4250025A4000A2872 /* Window.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
-		729B76D7250025A4000A2872 /* LogicTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogicTests.cpp; sourceTree = "<group>"; };
-		729B76D9250025A4000A2872 /* HierarchicalTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HierarchicalTests.cpp; sourceTree = "<group>"; };
-		729B76DA250025A4000A2872 /* HierarchicalTests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HierarchicalTests.hpp; sourceTree = "<group>"; };
-		729B76DC250025A4000A2872 /* RenderSystemTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderSystemTests.cpp; sourceTree = "<group>"; };
-		729B76DD250025A4000A2872 /* RenderSystemTests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RenderSystemTests.hpp; sourceTree = "<group>"; };
-		729B76DE250025A4000A2872 /* LogicTests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LogicTests.hpp; sourceTree = "<group>"; };
-		729B76E0250025A4000A2872 /* BoundingBoxTests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BoundingBoxTests.hpp; sourceTree = "<group>"; };
-		729B76E1250025A4000A2872 /* OctreeSystemTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OctreeSystemTests.cpp; sourceTree = "<group>"; };
-		729B76E2250025A4000A2872 /* OctreeSystemTests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OctreeSystemTests.hpp; sourceTree = "<group>"; };
-		729B76E3250025A4000A2872 /* BoundingBoxTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoundingBoxTests.cpp; sourceTree = "<group>"; };
-		729B76E5250025A4000A2872 /* SpatialTests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SpatialTests.hpp; sourceTree = "<group>"; };
-		729B76E6250025A4000A2872 /* SpatialTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpatialTests.cpp; sourceTree = "<group>"; };
-		729B76E8250025A4000A2872 /* TestGameObjectDatabase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TestGameObjectDatabase.hpp; sourceTree = "<group>"; };
-		729B76E9250025A4000A2872 /* TestTaskRunner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestTaskRunner.cpp; sourceTree = "<group>"; };
-		729B76EA250025A4000A2872 /* ECSTests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ECSTests.hpp; sourceTree = "<group>"; };
-		729B76EB250025A4000A2872 /* TestComponentContainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TestComponentContainer.hpp; sourceTree = "<group>"; };
-		729B76EC250025A4000A2872 /* SceneTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTests.cpp; sourceTree = "<group>"; };
-		729B76ED250025A4000A2872 /* TestComponentContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestComponentContainer.cpp; sourceTree = "<group>"; };
-		729B76EE250025A4000A2872 /* SceneTests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneTests.hpp; sourceTree = "<group>"; };
-		729B76EF250025A4000A2872 /* TestGameObjectDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestGameObjectDatabase.cpp; sourceTree = "<group>"; };
-		729B76F0250025A4000A2872 /* TestTaskRunner.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TestTaskRunner.hpp; sourceTree = "<group>"; };
-		729B76F1250025A4000A2872 /* ECSTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ECSTests.cpp; sourceTree = "<group>"; };
 		729B76F4250025A4000A2872 /* HierarchySystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HierarchySystem.hpp; sourceTree = "<group>"; };
 		729B76F5250025A4000A2872 /* Hierarchy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hierarchy.cpp; sourceTree = "<group>"; };
 		729B76F6250025A4000A2872 /* HierarchySystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HierarchySystem.cpp; sourceTree = "<group>"; };
@@ -629,6 +596,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		720B6E86250567DE00CDFFA5 /* Scripting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scripting;
+			sourceTree = "<group>";
+		};
 		729B76A12500252E000A2872 = {
 			isa = PBXGroup;
 			children = (
@@ -669,7 +643,6 @@
 				729B76D0250025A4000A2872 /* Platform */,
 				729B78F1250025A4000A2872 /* Rendering */,
 				729B78FA250025A5000A2872 /* TestFramework */,
-				729B76D5250025A4000A2872 /* Tests */,
 				729B76BF250025A4000A2872 /* Tools */,
 			);
 			name = Tiny;
@@ -728,86 +701,10 @@
 			path = OSX;
 			sourceTree = "<group>";
 		};
-		729B76D5250025A4000A2872 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				729B76D6250025A4000A2872 /* Logic */,
-				729B76E7250025A4000A2872 /* ECS */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		729B76D6250025A4000A2872 /* Logic */ = {
-			isa = PBXGroup;
-			children = (
-				729B76D8250025A4000A2872 /* Hierarchy */,
-				729B76D7250025A4000A2872 /* LogicTests.cpp */,
-				729B76DE250025A4000A2872 /* LogicTests.hpp */,
-				729B76DB250025A4000A2872 /* Rendering */,
-				729B76DF250025A4000A2872 /* Spatial */,
-				729B76E4250025A4000A2872 /* Transform */,
-			);
-			path = Logic;
-			sourceTree = "<group>";
-		};
-		729B76D8250025A4000A2872 /* Hierarchy */ = {
-			isa = PBXGroup;
-			children = (
-				729B76D9250025A4000A2872 /* HierarchicalTests.cpp */,
-				729B76DA250025A4000A2872 /* HierarchicalTests.hpp */,
-			);
-			path = Hierarchy;
-			sourceTree = "<group>";
-		};
-		729B76DB250025A4000A2872 /* Rendering */ = {
-			isa = PBXGroup;
-			children = (
-				729B76DC250025A4000A2872 /* RenderSystemTests.cpp */,
-				729B76DD250025A4000A2872 /* RenderSystemTests.hpp */,
-			);
-			path = Rendering;
-			sourceTree = "<group>";
-		};
-		729B76DF250025A4000A2872 /* Spatial */ = {
-			isa = PBXGroup;
-			children = (
-				729B76E0250025A4000A2872 /* BoundingBoxTests.hpp */,
-				729B76E1250025A4000A2872 /* OctreeSystemTests.cpp */,
-				729B76E2250025A4000A2872 /* OctreeSystemTests.hpp */,
-				729B76E3250025A4000A2872 /* BoundingBoxTests.cpp */,
-			);
-			path = Spatial;
-			sourceTree = "<group>";
-		};
-		729B76E4250025A4000A2872 /* Transform */ = {
-			isa = PBXGroup;
-			children = (
-				729B76E5250025A4000A2872 /* SpatialTests.hpp */,
-				729B76E6250025A4000A2872 /* SpatialTests.cpp */,
-			);
-			path = Transform;
-			sourceTree = "<group>";
-		};
-		729B76E7250025A4000A2872 /* ECS */ = {
-			isa = PBXGroup;
-			children = (
-				729B76E8250025A4000A2872 /* TestGameObjectDatabase.hpp */,
-				729B76E9250025A4000A2872 /* TestTaskRunner.cpp */,
-				729B76EA250025A4000A2872 /* ECSTests.hpp */,
-				729B76EB250025A4000A2872 /* TestComponentContainer.hpp */,
-				729B76EC250025A4000A2872 /* SceneTests.cpp */,
-				729B76ED250025A4000A2872 /* TestComponentContainer.cpp */,
-				729B76EE250025A4000A2872 /* SceneTests.hpp */,
-				729B76EF250025A4000A2872 /* TestGameObjectDatabase.cpp */,
-				729B76F0250025A4000A2872 /* TestTaskRunner.hpp */,
-				729B76F1250025A4000A2872 /* ECSTests.cpp */,
-			);
-			path = ECS;
-			sourceTree = "<group>";
-		};
 		729B76F2250025A4000A2872 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				720B6E86250567DE00CDFFA5 /* Scripting */,
 				729B76F3250025A4000A2872 /* Hierarchy */,
 				729B76F8250025A4000A2872 /* Input */,
 				729B76FD250025A4000A2872 /* Picking */,
@@ -1527,45 +1424,35 @@
 			files = (
 				729B79B5250025A5000A2872 /* Color.cpp in Sources */,
 				729B7913250025A5000A2872 /* Pickable.cpp in Sources */,
-				729B790B250025A5000A2872 /* SceneTests.cpp in Sources */,
-				729B7907250025A5000A2872 /* OctreeSystemTests.cpp in Sources */,
 				729B791A250025A5000A2872 /* LocalBoundingBox.cpp in Sources */,
-				729B7906250025A5000A2872 /* RenderSystemTests.cpp in Sources */,
 				729B7915250025A5000A2872 /* Mesh.cpp in Sources */,
-				729B7909250025A5000A2872 /* SpatialTests.cpp in Sources */,
 				729B7917250025A5000A2872 /* RenderSystem.cpp in Sources */,
 				729B7920250025A5000A2872 /* HierarchyWorldTransformSystem.cpp in Sources */,
 				729B7929250025A5000A2872 /* Rect.cpp in Sources */,
 				729B7910250025A5000A2872 /* HierarchySystem.cpp in Sources */,
 				729B7919250025A5000A2872 /* WorldBoundingBox.cpp in Sources */,
 				729B791F250025A5000A2872 /* WorldTransformSystem.cpp in Sources */,
-				729B7908250025A5000A2872 /* BoundingBoxTests.cpp in Sources */,
 				729B790F250025A5000A2872 /* Hierarchy.cpp in Sources */,
 				729B7923250025A5000A2872 /* GameObjectDatabase.cpp in Sources */,
 				729B7922250025A5000A2872 /* GameObjectCollection.cpp in Sources */,
-				729B790D250025A5000A2872 /* TestGameObjectDatabase.cpp in Sources */,
 				729B7914250025A5000A2872 /* PickableSystem.cpp in Sources */,
 				729B7926250025A5000A2872 /* Ray.cpp in Sources */,
 				729B76B725002530000A2872 /* main.cpp in Sources */,
 				729B7925250025A5000A2872 /* BoundingFrustum.cpp in Sources */,
 				729B7903250025A5000A2872 /* Window.mm in Sources */,
-				729B7905250025A5000A2872 /* HierarchicalTests.cpp in Sources */,
 				729B795D250025A5000A2872 /* glm.cpp in Sources */,
 				729B78FD250025A5000A2872 /* Timer.cpp in Sources */,
 				729B79B7250025A5000A2872 /* Vertex.cpp in Sources */,
 				729B79BE2500289F000A2872 /* TaskRunner.cpp in Sources */,
-				729B790C250025A5000A2872 /* TestComponentContainer.cpp in Sources */,
 				729B7927250025A5000A2872 /* BoundingBox.cpp in Sources */,
 				729B7924250025A5000A2872 /* SystemTask.cpp in Sources */,
 				729B78FE250025A5000A2872 /* Screen.cpp in Sources */,
 				729B7911250025A5000A2872 /* Input.cpp in Sources */,
-				729B790A250025A5000A2872 /* TestTaskRunner.cpp in Sources */,
 				729B79B6250025A5000A2872 /* Shader.cpp in Sources */,
 				729B79B8250025A5000A2872 /* TestBase.cpp in Sources */,
 				729B78FF250025A5000A2872 /* Device.cpp in Sources */,
 				729B791B250025A5000A2872 /* WorldBoundingBoxSystem.cpp in Sources */,
 				729B7902250025A5000A2872 /* Engine.cpp in Sources */,
-				729B790E250025A5000A2872 /* ECSTests.cpp in Sources */,
 				729B7916250025A5000A2872 /* Camera.cpp in Sources */,
 				729B7901250025A5000A2872 /* InputDevice.cpp in Sources */,
 				729B791E250025A5000A2872 /* WorldTransform.cpp in Sources */,
@@ -1574,7 +1461,6 @@
 				729B7912250025A5000A2872 /* InputSystem.cpp in Sources */,
 				729B791D250025A5000A2872 /* LocalTransform.cpp in Sources */,
 				729B7918250025A5000A2872 /* OctreeSystem.cpp in Sources */,
-				729B7904250025A5000A2872 /* LogicTests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
