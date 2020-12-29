@@ -116,7 +116,7 @@ struct ColorizerSystem : System<Mesh, Colorizer> {
 };
 
 
-struct State : IState {
+struct State2 : IState {
     using ComponentTypes = ComponentTypes<
         WorldBoundingBox, LocalBoundingBox, WorldTransform, Camera, Mesh, LocalTransform, Hierarchy, Rotator,
         Colorizer, Input, Pickable, ClickScaler, ClickDeleter,
@@ -280,8 +280,8 @@ struct State : IState {
 
 
 
-int main() {
+int main_squares() {
     Engine e;
-    e.Start<State>();
+    e.Start<State2>();
     return 0;
 }

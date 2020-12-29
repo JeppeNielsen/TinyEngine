@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7259B04E251CF14E00B5C08F /* QuadMeshSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7259B04A251CF14D00B5C08F /* QuadMeshSystem.cpp */; };
+		7259B04F251CF14E00B5C08F /* QuadMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7259B04D251CF14D00B5C08F /* QuadMesh.cpp */; };
+		7259B053251CF15400B5C08F /* Sizeable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7259B051251CF15300B5C08F /* Sizeable.cpp */; };
+		7259B056251CF33500B5C08F /* MeshBoundingBoxSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7259B054251CF33500B5C08F /* MeshBoundingBoxSystem.cpp */; };
 		729B76B725002530000A2872 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76B625002530000A2872 /* main.cpp */; };
 		729B78FD250025A5000A2872 /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76C1250025A4000A2872 /* Timer.cpp */; };
 		729B78FE250025A5000A2872 /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 729B76C7250025A4000A2872 /* Screen.cpp */; };
@@ -49,9 +53,21 @@
 		729B79C22500312A000A2872 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 729B79C12500312A000A2872 /* Cocoa.framework */; };
 		729B79C425003134000A2872 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 729B79C325003134000A2872 /* OpenGL.framework */; };
 		729B79C62500313E000A2872 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 729B79C52500313E000A2872 /* CoreVideo.framework */; };
+		72F16772251BEAF80033858F /* MeshIntersector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72F16770251BEAF70033858F /* MeshIntersector.cpp */; };
+		72F16774251C660B0033858F /* testDraggable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72F16773251C660B0033858F /* testDraggable.cpp */; };
+		72F1677A251C66DE0033858F /* DraggableSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72F16776251C66DE0033858F /* DraggableSystem.cpp */; };
+		72F1677B251C66DE0033858F /* Draggable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72F16778251C66DE0033858F /* Draggable.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7259B04A251CF14D00B5C08F /* QuadMeshSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuadMeshSystem.cpp; sourceTree = "<group>"; };
+		7259B04B251CF14D00B5C08F /* QuadMesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = QuadMesh.hpp; sourceTree = "<group>"; };
+		7259B04C251CF14D00B5C08F /* QuadMeshSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = QuadMeshSystem.hpp; sourceTree = "<group>"; };
+		7259B04D251CF14D00B5C08F /* QuadMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuadMesh.cpp; sourceTree = "<group>"; };
+		7259B051251CF15300B5C08F /* Sizeable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sizeable.cpp; sourceTree = "<group>"; };
+		7259B052251CF15300B5C08F /* Sizeable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sizeable.hpp; sourceTree = "<group>"; };
+		7259B054251CF33500B5C08F /* MeshBoundingBoxSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshBoundingBoxSystem.cpp; sourceTree = "<group>"; };
+		7259B055251CF33500B5C08F /* MeshBoundingBoxSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MeshBoundingBoxSystem.hpp; sourceTree = "<group>"; };
 		729B76AA2500252F000A2872 /* TinyOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		729B76B325002530000A2872 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		729B76B525002530000A2872 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -580,6 +596,13 @@
 		729B79C12500312A000A2872 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		729B79C325003134000A2872 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		729B79C52500313E000A2872 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		72F16770251BEAF70033858F /* MeshIntersector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshIntersector.cpp; sourceTree = "<group>"; };
+		72F16771251BEAF70033858F /* MeshIntersector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MeshIntersector.hpp; sourceTree = "<group>"; };
+		72F16773251C660B0033858F /* testDraggable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testDraggable.cpp; sourceTree = "<group>"; };
+		72F16776251C66DE0033858F /* DraggableSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DraggableSystem.cpp; sourceTree = "<group>"; };
+		72F16777251C66DE0033858F /* Draggable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Draggable.hpp; sourceTree = "<group>"; };
+		72F16778251C66DE0033858F /* Draggable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Draggable.cpp; sourceTree = "<group>"; };
+		72F16779251C66DE0033858F /* DraggableSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DraggableSystem.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -601,6 +624,26 @@
 			children = (
 			);
 			path = Scripting;
+			sourceTree = "<group>";
+		};
+		7259B049251CF14D00B5C08F /* Mesh */ = {
+			isa = PBXGroup;
+			children = (
+				7259B04A251CF14D00B5C08F /* QuadMeshSystem.cpp */,
+				7259B04B251CF14D00B5C08F /* QuadMesh.hpp */,
+				7259B04C251CF14D00B5C08F /* QuadMeshSystem.hpp */,
+				7259B04D251CF14D00B5C08F /* QuadMesh.cpp */,
+			);
+			path = Mesh;
+			sourceTree = "<group>";
+		};
+		7259B050251CF15300B5C08F /* Sizing */ = {
+			isa = PBXGroup;
+			children = (
+				7259B051251CF15300B5C08F /* Sizeable.cpp */,
+				7259B052251CF15300B5C08F /* Sizeable.hpp */,
+			);
+			path = Sizing;
 			sourceTree = "<group>";
 		};
 		729B76A12500252E000A2872 = {
@@ -627,6 +670,7 @@
 				729B76B225002530000A2872 /* MainMenu.xib */,
 				729B76B525002530000A2872 /* Info.plist */,
 				729B76B625002530000A2872 /* main.cpp */,
+				72F16773251C660B0033858F /* testDraggable.cpp */,
 				729B76B825002530000A2872 /* TinyOSX.entitlements */,
 			);
 			path = TinyOSX;
@@ -704,6 +748,9 @@
 		729B76F2250025A4000A2872 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				7259B050251CF15300B5C08F /* Sizing */,
+				7259B049251CF14D00B5C08F /* Mesh */,
+				72F16775251C66DE0033858F /* Dragging */,
 				720B6E86250567DE00CDFFA5 /* Scripting */,
 				729B76F3250025A4000A2872 /* Hierarchy */,
 				729B76F8250025A4000A2872 /* Input */,
@@ -772,6 +819,8 @@
 				729B7713250025A4000A2872 /* WorldBoundingBox.hpp */,
 				729B770F250025A4000A2872 /* WorldBoundingBoxSystem.cpp */,
 				729B770D250025A4000A2872 /* WorldBoundingBoxSystem.hpp */,
+				7259B054251CF33500B5C08F /* MeshBoundingBoxSystem.cpp */,
+				7259B055251CF33500B5C08F /* MeshBoundingBoxSystem.hpp */,
 			);
 			path = Spatial;
 			sourceTree = "<group>";
@@ -779,14 +828,14 @@
 		729B7714250025A4000A2872 /* Transform */ = {
 			isa = PBXGroup;
 			children = (
-				729B7715250025A4000A2872 /* LocalTransform.cpp */,
-				729B7716250025A4000A2872 /* HierarchyWorldTransformSystem.hpp */,
-				729B7717250025A4000A2872 /* WorldTransformSystem.hpp */,
-				729B7718250025A4000A2872 /* WorldTransform.cpp */,
-				729B7719250025A4000A2872 /* WorldTransformSystem.cpp */,
-				729B771A250025A4000A2872 /* WorldTransform.hpp */,
-				729B771B250025A4000A2872 /* LocalTransform.hpp */,
 				729B771C250025A4000A2872 /* HierarchyWorldTransformSystem.cpp */,
+				729B7716250025A4000A2872 /* HierarchyWorldTransformSystem.hpp */,
+				729B7715250025A4000A2872 /* LocalTransform.cpp */,
+				729B771B250025A4000A2872 /* LocalTransform.hpp */,
+				729B7718250025A4000A2872 /* WorldTransform.cpp */,
+				729B771A250025A4000A2872 /* WorldTransform.hpp */,
+				729B7719250025A4000A2872 /* WorldTransformSystem.cpp */,
+				729B7717250025A4000A2872 /* WorldTransformSystem.hpp */,
 			);
 			path = Transform;
 			sourceTree = "<group>";
@@ -830,6 +879,8 @@
 		729B7735250025A4000A2872 /* Math */ = {
 			isa = PBXGroup;
 			children = (
+				72F16770251BEAF70033858F /* MeshIntersector.cpp */,
+				72F16771251BEAF70033858F /* MeshIntersector.hpp */,
 				729B773E250025A4000A2872 /* BoundingBox.cpp */,
 				729B7744250025A4000A2872 /* BoundingBox.hpp */,
 				729B773B250025A4000A2872 /* BoundingFrustum.cpp */,
@@ -1355,6 +1406,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		72F16775251C66DE0033858F /* Dragging */ = {
+			isa = PBXGroup;
+			children = (
+				72F16778251C66DE0033858F /* Draggable.cpp */,
+				72F16777251C66DE0033858F /* Draggable.hpp */,
+				72F16776251C66DE0033858F /* DraggableSystem.cpp */,
+				72F16779251C66DE0033858F /* DraggableSystem.hpp */,
+			);
+			path = Dragging;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1428,11 +1490,16 @@
 				729B7915250025A5000A2872 /* Mesh.cpp in Sources */,
 				729B7917250025A5000A2872 /* RenderSystem.cpp in Sources */,
 				729B7920250025A5000A2872 /* HierarchyWorldTransformSystem.cpp in Sources */,
+				7259B053251CF15400B5C08F /* Sizeable.cpp in Sources */,
 				729B7929250025A5000A2872 /* Rect.cpp in Sources */,
+				7259B04F251CF14E00B5C08F /* QuadMesh.cpp in Sources */,
 				729B7910250025A5000A2872 /* HierarchySystem.cpp in Sources */,
 				729B7919250025A5000A2872 /* WorldBoundingBox.cpp in Sources */,
 				729B791F250025A5000A2872 /* WorldTransformSystem.cpp in Sources */,
+				72F1677A251C66DE0033858F /* DraggableSystem.cpp in Sources */,
+				72F16774251C660B0033858F /* testDraggable.cpp in Sources */,
 				729B790F250025A5000A2872 /* Hierarchy.cpp in Sources */,
+				7259B056251CF33500B5C08F /* MeshBoundingBoxSystem.cpp in Sources */,
 				729B7923250025A5000A2872 /* GameObjectDatabase.cpp in Sources */,
 				729B7922250025A5000A2872 /* GameObjectCollection.cpp in Sources */,
 				729B7914250025A5000A2872 /* PickableSystem.cpp in Sources */,
@@ -1448,8 +1515,10 @@
 				729B7924250025A5000A2872 /* SystemTask.cpp in Sources */,
 				729B78FE250025A5000A2872 /* Screen.cpp in Sources */,
 				729B7911250025A5000A2872 /* Input.cpp in Sources */,
+				7259B04E251CF14E00B5C08F /* QuadMeshSystem.cpp in Sources */,
 				729B79B6250025A5000A2872 /* Shader.cpp in Sources */,
 				729B79B8250025A5000A2872 /* TestBase.cpp in Sources */,
+				72F1677B251C66DE0033858F /* Draggable.cpp in Sources */,
 				729B78FF250025A5000A2872 /* Device.cpp in Sources */,
 				729B791B250025A5000A2872 /* WorldBoundingBoxSystem.cpp in Sources */,
 				729B7902250025A5000A2872 /* Engine.cpp in Sources */,
@@ -1457,6 +1526,7 @@
 				729B7901250025A5000A2872 /* InputDevice.cpp in Sources */,
 				729B791E250025A5000A2872 /* WorldTransform.cpp in Sources */,
 				729B792B250025A5000A2872 /* Plane.cpp in Sources */,
+				72F16772251BEAF80033858F /* MeshIntersector.cpp in Sources */,
 				729B7900250025A5000A2872 /* InputManager.cpp in Sources */,
 				729B7912250025A5000A2872 /* InputSystem.cpp in Sources */,
 				729B791D250025A5000A2872 /* LocalTransform.cpp in Sources */,
