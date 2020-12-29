@@ -12,7 +12,8 @@ project "TinyEngine"
 
    files { 
       "../Tiny/**.hpp", 
-      "../Tiny/**.cpp" 
+      "../Tiny/**.cpp",
+      "../Examples/RotatingQuads.cpp"
    }
 
    includedirs {
