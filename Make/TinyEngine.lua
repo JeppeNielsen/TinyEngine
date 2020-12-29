@@ -1,3 +1,6 @@
+
+location "../Generated"
+
 workspace "TinyEngine"
    configurations { "Debug", "Release" }
 
@@ -5,7 +8,7 @@ project "TinyEngine"
    kind "ConsoleApp" 
    language "C++"
    targetdir "../bin/%{cfg.buildcfg}"
-   location "../Generated"
+   
 
    files { 
       "../Tiny/**.hpp", 
