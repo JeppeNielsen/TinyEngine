@@ -15,6 +15,7 @@ using namespace Tiny;
 void RenderSystem::Initialize(RenderOctreeSystem& octreeSystem) {
     this->octreeSystem = &octreeSystem;
     
+    /*
     shader.Load(
         SHADER_SOURCE(
             attribute vec4 Position;
@@ -35,6 +36,7 @@ void RenderSystem::Initialize(RenderOctreeSystem& octreeSystem) {
         )
     );
     
+    */
 }
 
 void RenderSystem::Update(const WorldTransform &transform, const Camera &camera) {
@@ -49,7 +51,7 @@ void RenderSystem::Update(const WorldTransform &transform, const Camera &camera)
     
    // std::cout << "num quads : " << objectsInView.size() << "\n";
     
-    std::cout << "Num objects in view : "<< objectsInView.size() << "\n";
+    //std::cout << "Num objects in view : "<< objectsInView.size() << "\n";
     
     worldSpaceMeshes.clear();
     
@@ -83,11 +85,11 @@ void RenderSystem::RenderScene() {
     
     const mat4x4 viewProjection = cameraTransform.worldInverse * camera.GetProjection();
     
-    shader.Use();
-    shader.SetViewProjection(glm::value_ptr(viewProjection));
+    shader->Use();
+    shader->SetViewProjection(glm::value_ptr(viewProjection));
     
     for(auto& worldSpaceMesh : worldSpaceMeshes) {
-        vertexRenderer.RenderVertices(worldSpaceMesh.vertices, 0, worldSpaceMesh.vertices.size(), worldSpaceMesh.triangles, 0, worldSpaceMesh.triangles.size());
+        vertexRenderer->RenderVertices(worldSpaceMesh.vertices, 0, worldSpaceMesh.vertices.size(), worldSpaceMesh.triangles, 0, worldSpaceMesh.triangles.size());
     }
 }
 

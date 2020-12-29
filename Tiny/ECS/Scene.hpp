@@ -48,7 +48,9 @@ private:
     std::array<SystemTask, NumSystems> systemTasks;
     TaskRunner taskRunner;
     GameObjectCollection objectsScheduledForRemoval;
-    
+public:
+    bool Log = false;
+private:
     void CreateTasks() {
         TupleHelper::Iterate(systems, [this](auto& system) {
             const auto& components = this->registry.components;
@@ -173,7 +175,18 @@ private:
     
     void RunTask(SystemTask& task) {
         if (!task.IsReady()) return;
+        if (task.isDone) return;
         
+        task.work();
+        task.isDone = true;
+        if (Log) {
+            std::cout << task.name << " : " << (task.lastTime * 1000.0f) <<std::endl;
+        }
+        for(auto outgoingTask : task.outgoing) {
+            RunTask(*outgoingTask);
+        }
+        
+        /*
         taskRunner.RunTask(task.work, [this, &task] () {
             task.isDone = true;
             //std::cout << task.name << " : " << (task.lastTime * 1000.0f) <<std::endl;
@@ -181,6 +194,7 @@ private:
                 RunTask(*outgoingTask);
             }
         });
+         */
     }
 
 public:
@@ -298,6 +312,9 @@ public:
     }
         
     void Update() {
+        if (Log) {
+            std::cout << "Scene::Update: start\n";
+        }
         Timer timer;
         timer.Start();
         for(auto& task : systemTasks) {
@@ -308,10 +325,12 @@ public:
         }
         
         while(taskRunner.Update());
-        registry.ResetChanged(); // should be moved out of Scene, because there might be multiple Scenes.
+        
         UpdateSceneModifiers();
         RemoveGameObjects();
-        //std::cout << "Scene::Update: "<< timer.Stop() * 1000 << "\n";
+        if (Log) {
+            std::cout << "Scene::Update: "<< timer.Stop() * 1000 << "\n";
+        }
     }
     
     void UpdateSceneModifiers() {

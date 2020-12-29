@@ -29,8 +29,8 @@ struct RenderSystem :
         
         void RenderScene();
         
-        VertexRenderer<Vertex> vertexRenderer;
-        Shader<Vertex> shader;
+        VertexRenderer<Vertex>* vertexRenderer;
+        Shader<Vertex>* shader;
 
         RenderOctreeSystem* octreeSystem;
         

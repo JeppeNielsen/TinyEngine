@@ -298,6 +298,12 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
     engineWindow->mainLoopData.ScreenSize(globalWindowWidth, globalWindowHeight);
 }
 
+- (void)windowWillMove:(NSNotification *)notification {
+    
+    std::cout << "Window will move"<<std::endl;
+    
+}
+
 @end
 
 void Window::StartLoop(MainLoopData mainLoopData) {

@@ -12,8 +12,10 @@
 namespace Tiny {
     struct LocalTransform {
         LocalTransform();
-        glm::vec3 position;
-        glm::quat rotation;
-        glm::vec3 scale;
+        glm::vec3 position = {0.0f,0.0f,0.0f};
+        glm::quat rotation = quat(1.0f,0.0f,0.0f,0.0f);
+        glm::vec3 scale = vec3(1.0f,1.0f,1.0f);
+        
+        mat4 GetLocalToParent() const;
     };
 }

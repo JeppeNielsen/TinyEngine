@@ -9,36 +9,15 @@
 #include "PickableSystem.hpp"
 
 using namespace Tiny;
-using namespace Tiny;
 
 void PickableSystem::Initialize(PickableOctreeSystem &octreeSystem) {
     this->octreeSystem = &octreeSystem;
 }
 
-Ray GetRay(const WorldTransform &transform, const Camera &camera, const ivec2& screenSize, const ivec2& screenPosition) {
-    //const Rect& viewPort = Viewport() * Screen::MainScreen->Size();
-    
-    const ivec2 center = screenSize / 2;
-    
-    vec2 fromCenter = screenPosition - center;
-    fromCenter /= center;
-    
-    mat4x4 viewProjection = transform.worldInverse * camera.GetProjection();
-    viewProjection = inverse(viewProjection);
-    
-    vec4 rayStartPosition = vec4(fromCenter.x,fromCenter.y,-1.0f,1.0f);
-    vec4 rayEndPosition = vec4(fromCenter.x,fromCenter.y,1.0f,1.0f);
-    
-    rayStartPosition = viewProjection * rayStartPosition;
-    rayEndPosition = viewProjection * rayEndPosition;
-    
-    return Ray(rayStartPosition, rayEndPosition - rayStartPosition);
-}
-
 void PickableSystem::Update(const WorldTransform &transform, const Camera &camera, const Input& input) {
     
     for(auto& resetPickable : resetPickables) {
-        GetComponents(resetPickable.gameObject, [](Pickable& pickable) {
+        GetComponents(resetPickable.gameObject, [](Pickable& pickable, const Mesh& mesh, const WorldTransform& worldTransform) {
             pickable.down.clear();
             pickable.up.clear();
             pickable.clicked.clear();
@@ -60,21 +39,29 @@ void PickableSystem::TouchDown(const WorldTransform &transform, const Camera &ca
     
     auto touchPosition = input.touchPosition[touch.index];
     
-    Ray ray = GetRay(transform, camera, screenSize, touchPosition.position);
+    Ray ray = camera.GetRay(transform, screenSize, touchPosition.position);
     
     std::vector<GameObject> downs;
     octreeSystem->Query(ray, downs);
     
     for(auto down : downs) {
         
-        PickEvent e;
-        e.touch = touch;
-        e.touchPosition = touchPosition;
-        e.worldPosition = {0.0f, 0.0f, 0.0f };
-        e.object = down;
-        
-        GetComponents(down, [&input, &touch, &e](Pickable& pickable) {
-           pickable.down.push_back(e);
+        GetComponents(down, [down, &transform, &camera, &input, &touch, &ray, this](Pickable& pickable, const Mesh& mesh, const WorldTransform& worldTransform) {
+           
+            Ray localRay = ray;
+            localRay.Transform(worldTransform.worldInverse);
+            IntersectionResult result;
+            if (intersector.TryIntersect(mesh, localRay, result)) {
+                
+                PickEvent e(transform, camera, input);
+                e.touch = touch;
+                e.touchPosition = input.touchPosition[touch.index];
+                e.worldPosition = ray.position + ray.direction * result.distance;
+                e.worldNormal = result.normal;
+                e.object = down;
+                
+                pickable.down.push_back(e);
+            }
         });
         activePickables.push_back({ touch, down });
     }
@@ -84,35 +71,48 @@ void PickableSystem::TouchUp(const WorldTransform &transform, const Camera &came
     
     auto touchPosition = input.touchPosition[touch.index];
     
-    Ray ray = GetRay(transform, camera, screenSize, touchPosition.position);
+    Ray ray = camera.GetRay(transform, screenSize, touchPosition.position);
     
     std::vector<GameObject> ups;
     octreeSystem->Query(ray, ups);
     
-    
-    
     for(auto& activePickable : activePickables) {
         if (activePickable.touch.index == touch.index) {
             
-            PickEvent e;
+            PickEvent e(transform, camera, input);
             e.touch = touch;
             e.touchPosition = input.touchPosition[touch.index];
             e.worldPosition = {0,0,0};
             e.object = activePickable.gameObject;
             
             bool clicked = std::find(ups.begin(), ups.end(), activePickable.gameObject) != ups.end();
-            GetComponents(activePickable.gameObject, [&touch, &e, &ups, clicked] (Pickable& pickable) {
+           
+            GetComponents(activePickable.gameObject, [clicked, &e, &input, &touch, &ray, this](Pickable& pickable, const Mesh& mesh, const WorldTransform& worldTransform) {
+                                 
                 pickable.up.push_back(e);
+                
                 if (clicked) {
-                    pickable.clicked.push_back(e);
+                    
+                    Ray localRay = ray;
+                    localRay.Transform(worldTransform.worldInverse);
+                    
+                    IntersectionResult result;
+                    if (intersector.TryIntersect(mesh, localRay, result)) {
+                       
+                        PickEvent clickPickEvent = e;
+                        clickPickEvent.worldPosition = ray.position + ray.direction * result.distance;
+                        clickPickEvent.worldNormal = result.normal;
+                        
+                        pickable.down.push_back(clickPickEvent);
+                    }
                 }
             });
+            
         }
     }
     
     activePickables.erase(std::remove_if(activePickables.begin(), activePickables.end(), [&touch](auto& activePickable) {
         return activePickable.touch.index == touch.index;
     }), activePickables.end());
-    
 }
                             

@@ -19,6 +19,7 @@
 #include "Input.hpp"
 #include "WorldTransformSystem.hpp"
 #include "HierarchyWorldTransformSystem.hpp"
+#include "MeshIntersector.hpp"
 
 namespace Tiny {
 
@@ -27,7 +28,7 @@ using PickableOctreeSystem = OctreeSystem<const WorldTransform, const Pickable, 
 struct PickableSystem :
     Tiny::System<const WorldTransform, const Camera, const Input>,
     Tiny::SystemDependencies<PickableOctreeSystem>,
-    Tiny::ComponentView<Pickable>,
+    Tiny::ComponentView<Pickable, const Mesh, const WorldTransform>,
     Tiny::RemoveDependencies<PickableOctreeSystem, WorldTransformSystem, HierarchyWorldTransformSystem> {
         void Initialize(PickableOctreeSystem& octreeSystem);
         void Update(const WorldTransform& transform, const Camera& camera, const Input& input);
@@ -44,7 +45,7 @@ struct PickableSystem :
         
         std::vector<DownPickable> activePickables;
         std::vector<DownPickable> resetPickables;
-        
+        MeshIntersector intersector;
         
     };
 }

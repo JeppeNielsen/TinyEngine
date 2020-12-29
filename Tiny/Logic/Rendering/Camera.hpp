@@ -8,6 +8,8 @@
 
 #pragma once
 #include "Math.hpp"
+#include "Ray.hpp"
+#include "WorldTransform.hpp"
 
 namespace Tiny {
     struct Camera {
@@ -17,5 +19,10 @@ namespace Tiny {
         float Far;
         
         mat4x4 GetProjection() const;
+     
+        Ray GetRay(const WorldTransform &transform,
+                   const ivec2& screenSize,
+                   const ivec2& screenPosition) const;
+        
     };
 }
