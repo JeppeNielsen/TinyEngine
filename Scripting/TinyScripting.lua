@@ -4,16 +4,20 @@ location "Generated"
 workspace "TinyScripting"
    configurations { "Debug", "Release" }
    buildoptions { "-std=c++14", "-fno-rtti" }
-
+   
 project "TinyScripting"
    kind "ConsoleApp" 
    language "C++"
    targetdir "bin/%{cfg.buildcfg}"
-   
 
    files { 
       "Source/**.h", 
       "Source/**.cpp"
+      --"Source/cling/libs/**.a",
+      --"Source/cling/libs/**.dylib"
+   }
+   removefiles {
+      "Source/clingLib/**"
    }
 
    includedirs {
@@ -21,184 +25,26 @@ project "TinyScripting"
    }
 
    sysincludedirs {
-      "Source/cling/libs",
       "Source/cling/include",
-      "Source/clingLib/include",
+      "Source/clingLib/include"
    }
 
-   filter { "system:windows" }
-      
+
    filter { "system:not windows" }
-      libdirs { "Source/cling/libs"}
-      buildoptions {"-F ../Source/cling/libs"}
-      linkoptions {"-F ../Source/cling/libs"}
-      links { 
-"LLVMAArch64AsmParser",
-"LLVMAArch64AsmPrinter",
-"LLVMAArch64CodeGen",
-"LLVMAArch64Desc",
-"LLVMAArch64Disassembler",
-"LLVMAArch64Info",
-"LLVMAArch64Utils",
-"LLVMAMDGPUAsmParser",
-"LLVMAMDGPUAsmPrinter",
-"LLVMAMDGPUCodeGen",
-"LLVMAMDGPUDesc",
-"LLVMAMDGPUDisassembler",
-"LLVMAMDGPUInfo",
-"LLVMAMDGPUUtils",
-"LLVMARMAsmParser",
-"LLVMARMAsmPrinter",
-"LLVMARMCodeGen",
-"LLVMARMDesc",
-"LLVMARMDisassembler",
-"LLVMARMInfo",
-"LLVMAnalysis",
-"LLVMAsmParser",
-"LLVMAsmPrinter",
-"LLVMBPFAsmPrinter",
-"LLVMBPFCodeGen",
-"LLVMBPFDesc",
-"LLVMBPFDisassembler",
-"LLVMBPFInfo",
-"LLVMBinaryFormat",
-"LLVMBitReader",
-"LLVMBitWriter",
-"LLVMCodeGen",
-"LLVMCore",
-"LLVMCoroutines",
-"LLVMCoverage",
-"LLVMDebugInfoCodeView",
-"LLVMDebugInfoDWARF",
-"LLVMDebugInfoMSF",
-"LLVMDebugInfoPDB",
-"LLVMDemangle",
-"LLVMDlltoolDriver",
-"LLVMExecutionEngine",
-"LLVMGlobalISel",
-"LLVMHexagonAsmParser",
-"LLVMHexagonCodeGen",
-"LLVMHexagonDesc",
-"LLVMHexagonDisassembler",
-"LLVMHexagonInfo",
-"LLVMIRReader",
-"LLVMInstCombine",
-"LLVMInstrumentation",
-"LLVMInterpreter",
-"LLVMLTO",
-"LLVMLanaiAsmParser",
-"LLVMLanaiAsmPrinter",
-"LLVMLanaiCodeGen",
-"LLVMLanaiDesc",
-"LLVMLanaiDisassembler",
-"LLVMLanaiInfo",
-"LLVMLibDriver",
-"LLVMLineEditor",
-"LLVMLinker",
-"LLVMMC",
-"LLVMMCDisassembler",
-"LLVMMCJIT",
-"LLVMMCParser",
-"LLVMMIRParser",
-"LLVMMSP430AsmPrinter",
-"LLVMMSP430CodeGen",
-"LLVMMSP430Desc",
-"LLVMMSP430Info",
-"LLVMMipsAsmParser",
-"LLVMMipsAsmPrinter",
-"LLVMMipsCodeGen",
-"LLVMMipsDesc",
-"LLVMMipsDisassembler",
-"LLVMMipsInfo",
-"LLVMNVPTXAsmPrinter",
-"LLVMNVPTXCodeGen",
-"LLVMNVPTXDesc",
-"LLVMNVPTXInfo",
-"LLVMObjCARCOpts",
-"LLVMObject",
-"LLVMObjectYAML",
-"LLVMOption",
-"LLVMOrcJIT",
-"LLVMPasses",
-"LLVMPowerPCAsmParser",
-"LLVMPowerPCAsmPrinter",
-"LLVMPowerPCCodeGen",
-"LLVMPowerPCDesc",
-"LLVMPowerPCDisassembler",
-"LLVMPowerPCInfo",
-"LLVMProfileData",
-"LLVMRuntimeDyld",
-"LLVMScalarOpts",
-"LLVMSelectionDAG",
-"LLVMSparcAsmParser",
-"LLVMSparcAsmPrinter",
-"LLVMSparcCodeGen",
-"LLVMSparcDesc",
-"LLVMSparcDisassembler",
-"LLVMSparcInfo",
---"LLVMSupport",
-"LLVMSymbolize",
-"LLVMSystemZAsmParser",
-"LLVMSystemZAsmPrinter",
-"LLVMSystemZCodeGen",
-"LLVMSystemZDesc",
-"LLVMSystemZDisassembler",
-"LLVMSystemZInfo",
-"LLVMTableGen",
-"LLVMTarget",
-"LLVMTransformUtils",
-"LLVMVectorize",
-"LLVMX86AsmParser",
-"LLVMX86AsmPrinter",
-"LLVMX86CodeGen",
-"LLVMX86Desc",
-"LLVMX86Disassembler",
-"LLVMX86Info",
-"LLVMX86Utils",
-"LLVMXCoreAsmPrinter",
-"LLVMXCoreCodeGen",
-"LLVMXCoreDesc",
-"LLVMXCoreDisassembler",
-"LLVMXCoreInfo",
-"LLVMXRay",
-"LLVMipo",
-"clangARCMigrate",
-"clangAST",
-"clangASTMatchers",
-"clangAnalysis",
-"clangBasic",
-"clangCodeGen",
-"clangDriver",
-"clangDynamicASTMatchers",
-"clangEdit",
-"clangFormat",
-"clangFrontend",
-"clangFrontendTool",
-"clangIndex",
-"clangLex",
-"clangParse",
-"clangRewrite",
-"clangRewriteFrontend",
-"clangSema",
-"clangSerialization",
-"clangStaticAnalyzerCheckers",
-"clangStaticAnalyzerCore",
-"clangStaticAnalyzerFrontend",
-"clangTooling",
-"clangToolingCore",
-"clangToolingRefactor",
-"clingInterpreter",
-"clingMetaProcessor",
-"clingUserInterface",
-"clingUtils",
-"LTO",
-"clang",
-"cling",
-"clingDemoPlugin",
-"clingJupyter",
+            linkoptions { 
+"-L../Source/cling/libs -lLLVMSelectionDAG -lLLVMAArch64Disassembler -lclangRewrite -lLLVMHexagonAsmParser -lLLVMARMAsmPrinter -lLLVMXCoreAsmPrinter -lLLVMHexagonDisassembler -lLLVMDlltoolDriver -lclangToolingCore -lLLVMPowerPCInfo -lLLVMMCJIT -lclangStaticAnalyzerCore -lLLVMAsmPrinter -lLLVMLanaiDesc -lLLVMAArch64CodeGen -lLLVMipo -lclangToolingRefactor -lLLVMMSP430Info -lLLVMHexagonCodeGen -lLLVMAMDGPUAsmParser -lLLVMMIRParser -lLLVMMipsAsmPrinter -lLLVMSystemZAsmPrinter -lLLVMTransformUtils -lclang -lLLVMSystemZCodeGen -lLLVMVectorize -lLLVMXCoreCodeGen -lclangDriver -lLLVMXCoreDesc -lclangIndex -lLLVMInstCombine -lLLVMARMInfo -lclangRewriteFrontend -lLLVMAMDGPUAsmPrinter -lLTO -lLLVMDemangle -lLLVMSparcAsmPrinter -lLLVMXCoreDisassembler -lLLVMMipsInfo -lLLVMSparcDesc -lclangStaticAnalyzerFrontend -lLLVMBinaryFormat -lLLVMAsmParser -lLLVMMSP430Desc -lLLVMLanaiAsmPrinter -lclangTooling -lclingMetaProcessor -lLLVMLanaiDisassembler -lLLVMPowerPCDisassembler -lLLVMLanaiCodeGen -lLLVMAnalysis -lLLVMMipsAsmParser -lLLVMOption -lclingInterpreter -lclangDynamicASTMatchers -lLLVMCoverage -lLLVMLibDriver -lLLVMAArch64Utils -lclangBasic -lLLVMAMDGPUUtils -lLLVMAMDGPUInfo -lLLVMCodeGen -lLLVMHexagonInfo -lLLVMObjCARCOpts -lLLVMX86Info -lLLVMCore -lclangStaticAnalyzerCheckers -lclangAST -lLLVMMSP430AsmPrinter -lLLVMARMDisassembler -lLLVMX86Desc -lLLVMAMDGPUDisassembler -lLLVMARMDesc -lLLVMLinker -lLLVMObject -lLLVMLineEditor -lLLVMNVPTXInfo -lLLVMSymbolize -lLLVMPowerPCAsmPrinter -lLLVMSparcAsmParser -lLLVMX86Utils -lLLVMAArch64AsmParser -lclangFrontendTool -lLLVMMCParser -lLLVMAMDGPUCodeGen -lLLVMBitReader -lclingUtils -lLLVMAMDGPUDesc -lLLVMNVPTXCodeGen -lLLVMGlobalISel -lLLVMBPFDesc -lLLVMX86CodeGen -lLLVMBitWriter -lLLVMBPFDisassembler -lclangSerialization -lclangCodeGen -lclangASTMatchers -lLLVMSystemZAsmParser -lLLVMSystemZDisassembler -lLLVMSparcInfo -lLLVMDebugInfoMSF -lLLVMSystemZDesc -lclangAnalysis -lLLVMPowerPCAsmParser -lLLVMMipsDesc -lLLVMOrcJIT -lLLVMPowerPCDesc -lclangLex -lclangSema -lLLVMAArch64Desc -lLLVMARMCodeGen -lLLVMAArch64Info -lLLVMMipsCodeGen -lLLVMTableGen -lclangARCMigrate -lLLVMX86AsmParser -lLLVMDebugInfoDWARF -lLLVMSystemZInfo -lLLVMDebugInfoCodeView -lLLVMDebugInfoPDB -lLLVMInterpreter -lclangEdit -lLLVMHexagonDesc -lLLVMLanaiInfo -lLLVMMipsDisassembler -lLLVMScalarOpts -lclangFormat -lclingUserInterface -lLLVMProfileData -lLLVMNVPTXAsmPrinter -lLLVMARMAsmParser -lLLVMRuntimeDyld -lLLVMXCoreInfo -lLLVMTarget -lLLVMX86Disassembler -lLLVMLTO -lclingJupyter -lcling -lLLVMCoroutines -lclangParse -lLLVMMC -lLLVMObjectYAML -lLLVMInstrumentation -lLLVMSparcDisassembler -lLLVMMSP430CodeGen -lclangFrontend -lLLVMBPFCodeGen -lLLVMAArch64AsmPrinter -lLLVMNVPTXDesc -lLLVMXRay -lLLVMIRReader -lLLVMLanaiAsmParser -lLLVMExecutionEngine -lLLVMBPFAsmPrinter -lLLVMPasses -lclingDemoPlugin -lLLVMMCDisassembler -lLLVMX86AsmPrinter -lLLVMBPFInfo -lLLVMPowerPCCodeGen -lLLVMSparcCodeGen -lLLVMSupport"
+}
+
+postbuildcommands { 
+
+"cp ../Source/cling/libs/libclang.dylib ../bin/Debug/libclang.dylib",
+"cp ../Source/cling/libs/libcling.dylib ../bin/Debug/libcling.dylib",
+"cp ../Source/cling/libs/libclingDemoPlugin.dylib ../bin/Debug/libclingDemoPlugin.dylib",
+"cp ../Source/cling/libs/libclingJupyter.dylib ../bin/Debug/libclingJupyter.dylib",
+"cp ../Source/cling/libs/libLTO.dylib ../bin/Debug/libLTO.dylib",
 
 }
-      
+    
    filter "configurations:Debug"
       defines { "DEBUG", "HAVE_DLFCN_H", "HAVE_DLOPEN" }
       symbols "On"
