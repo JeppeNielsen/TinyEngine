@@ -29,6 +29,9 @@ namespace cling {
   class InvocationOptions;
 
   namespace CIFactory {
+  
+    void SetClangPath(const std::string& newClangPath);
+  
     typedef std::unique_ptr<llvm::MemoryBuffer> MemBufPtr_t;
     using ModuleFileExtensions =
         std::vector<std::shared_ptr<clang::ModuleFileExtension>>;

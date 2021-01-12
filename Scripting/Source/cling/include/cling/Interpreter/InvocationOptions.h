@@ -97,7 +97,7 @@ namespace cling {
     unsigned ShowVersion : 1;
     unsigned Help : 1;
     unsigned NoRuntime : 1;
-      bool Verbose() const { return true; }//CompilerOpts.Verbose; }
+      bool Verbose() const { return CompilerOpts.Verbose; }
 
     static void PrintHelp();
 

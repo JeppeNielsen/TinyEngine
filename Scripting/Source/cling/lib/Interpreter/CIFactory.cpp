@@ -51,14 +51,50 @@
 #include <cstdio>
 #include <ctime>
 #include <memory>
+#include <sstream>
 
 using namespace clang;
 using namespace cling;
 
-#define CLING_CXX_PATH "/Users/jeppe/Downloads/clang+llvm-10.0.0-x86_64-apple-darwin/include/c++/v1"
-#define CLING_CXX_INCL "/Users/jeppe/Downloads/clang+llvm-10.0.0-x86_64-apple-darwin/lib/clang/10.0.0/include"
+//#define CLING_CXX_PATH "/Users/jeppe/Downloads/clang+llvm-10.0.0-x86_64-apple-darwin/bin/"
+//#define CLING_CXX_INCL "/Users/jeppe/Downloads/clang+llvm-10.0.0-x86_64-apple-darwin/lib/clang/10.0.0/include"
+//#define CLING_CXX_INCL "/Users/jeppe/Downloads/clang+llvm-10.0.0-x86_64-apple-darwin/include"
+
+std::string pipe_to_string( const char* command )
+{
+    FILE* file = popen( command, "r" ) ;
+
+    if( file )
+    {
+        std::stringstream stm ;
+
+        constexpr std::size_t MAX_LINE_SZ = 1024 ;
+        char line[MAX_LINE_SZ] ;
+
+        while( fgets( line, MAX_LINE_SZ, file ) ) stm << line;
+
+        pclose(file) ;
+        std::string str = stm.str() ;
+        str = str.substr(0,str.length() - 1);
+        return str;
+    }
+
+    return "" ;
+}
+
+static std::string clangPath;
+
+
+std::string GetClangIncludePath() {
+    return clangPath + "/lib/clang/10.0.0/include";
+}
+
+std::string GetClangCppPath() {
+    return clangPath + "/include/c++/v1/";
+}
 
 namespace {
+
   static constexpr unsigned CxxStdCompiledWith() {
     // The value of __cplusplus in GCC < 5.0 (e.g. 4.9.3) when
     // either -std=c++1y or -std=c++14 is specified is 201300L, which fails
@@ -127,8 +163,9 @@ namespace {
             if (Verbose)
               cling::utils::LogNonExistantDirectory(Path);
           }
-          else
+          else {
             Args.addArgument("-cxx-isystem", Path.str());
+          }
         }
       }
       ::pclose(PF);
@@ -160,7 +197,7 @@ namespace {
                            platform::kEnvDelim, true))
       return false;
 
-    if (true) {
+    if (Verbose) {
       cling::log() << "Found:\n";
       for (llvm::StringRef Path : Paths)
         cling::log() << " " << Path << "\n";
@@ -197,6 +234,7 @@ namespace {
       return resourcePath;
     }
   }
+
 
   ///\brief Adds standard library -I used by whatever compiler is found in PATH.
   static void AddHostArguments(llvm::StringRef clingBin,
@@ -305,10 +343,10 @@ namespace {
           ReadCompilerIncludePaths(CLING_CXX_RLTV, buffer, sArguments, Verbose);
   #endif
   // Then try the include directory cling was built with
-  #ifdef CLING_CXX_INCL
+  //#ifdef CLING_CXX_INCL
         if (sArguments.empty())
-          AddCxxPaths(CLING_CXX_INCL, sArguments, Verbose);
-  #endif
+          AddCxxPaths(GetClangIncludePath().c_str(), sArguments, Verbose);
+  //#endif
   // Finally try the absolute path i.e.: '/usr/bin/g++'
   #ifdef CLING_CXX_PATH
         if (sArguments.empty())
@@ -346,7 +384,7 @@ namespace {
 
 #endif // _MSC_VER
 
-      if (!opts.ResourceDir && !opts.NoBuiltinInc) {
+      /*if (!opts.ResourceDir && !opts.NoBuiltinInc) {
         std::string resourcePath = getResourceDir(llvmdir);
 
         // FIXME: Handle cases, where the cling is part of a library/framework.
@@ -359,13 +397,20 @@ namespace {
         } else {
           sArguments.addArgument("-resource-dir", std::move(resourcePath));
         }
-      }
+      }*/
+       
+       
     }
+       
       
       
-    //TODO: ADDED BY JEPPE  
-    sArguments.addArgument("-I", "/Users/jeppe/Downloads/clang+llvm-10.0.0-x86_64-apple-darwin/include/c++/v1/");
-    sArguments.addArgument("-I", "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include");
+    //TODO: ADDED BY JEPPE
+    //sArguments.addArgument("-w");
+    sArguments.addArgument("-I", GetClangCppPath().c_str());
+    //sArguments.addArgument("-I", "/Users/jeppe/Downloads/clang+llvm-10.0.0-x86_64-apple-darwin/include/c++/v1/");
+    
+    std::string sdkPath = pipe_to_string("xcrun --sdk macosx --show-sdk-path") + "/usr/include";
+    sArguments.addArgument("-I", sdkPath);
       
     for (auto& arg : sArguments) {
       args.push_back(arg.first);
@@ -1650,6 +1695,10 @@ static void stringifyPreprocSetting(PreprocessorOptions& PPOpts,
 } // unnamed namespace
 
 namespace cling {
+
+void CIFactory::SetClangPath(const std::string& newClangPath) {
+    clangPath = newClangPath;
+}
 
 CompilerInstance*
 CIFactory::createCI(llvm::StringRef Code, const InvocationOptions& Opts,

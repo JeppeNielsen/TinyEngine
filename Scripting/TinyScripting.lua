@@ -1,20 +1,19 @@
 
 location "Generated"
 
-workspace "TinyScripting"
+workspace "TinyScriptingEngine"
    configurations { "Debug", "Release" }
    buildoptions { "-std=c++14", "-fno-rtti" }
    
-project "TinyScripting"
-   kind "ConsoleApp" 
+project "TinyScriptingEngine"
+   kind "StaticLib" 
    language "C++"
    targetdir "bin/%{cfg.buildcfg}"
 
    files { 
       "Source/**.h", 
-      "Source/**.cpp"
-      --"Source/cling/libs/**.a",
-      --"Source/cling/libs/**.dylib"
+      "Source/**.cpp",
+      "Include/**.hpp", 
    }
    removefiles {
       "Source/clingLib/**"
@@ -22,6 +21,7 @@ project "TinyScripting"
 
    includedirs {
       "Source/cling/include/**",
+      "Include/",
    }
 
    sysincludedirs {
@@ -42,7 +42,6 @@ postbuildcommands {
 "cp ../Source/cling/libs/libclingDemoPlugin.dylib ../bin/Debug/libclingDemoPlugin.dylib",
 "cp ../Source/cling/libs/libclingJupyter.dylib ../bin/Debug/libclingJupyter.dylib",
 "cp ../Source/cling/libs/libLTO.dylib ../bin/Debug/libLTO.dylib",
-
 }
     
    filter "configurations:Debug"

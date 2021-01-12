@@ -242,8 +242,7 @@ namespace cling {
       // calls HandleTopLevelDecl which causes CodeGen to run the module
       // initializers eagerly.
       if (DGR.isSingleDecl() && isa<ImportDecl>(DGR.getSingleDecl()))
-	return true;
-
+        return true;
       m_Consumer->HandleTopLevelDecl(DGR);
     }
     return true;
