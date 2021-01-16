@@ -2,6 +2,12 @@
 
 #include "Vector2.hpp"
 
+template<typename T>
+struct List {
+    T item;
+
+};
+
 extern "C" {
     int GetResult() {
     
@@ -14,7 +20,12 @@ extern "C" {
         Vector2 vec3 {10,10};
 
         Vector2 result = vec1 + vec2 - vec3;
+
+        List<int> list;
+        list.item = 123;
         
-        return (int)result.Length() + add(11, 11);
+        //return (int)result.Length() + add(11, 11) + list.item;
+        return list.item;
+        
     }
 }
