@@ -5,7 +5,7 @@ workspace "TinyEngine"
    configurations { "Debug", "Release" }
 
 project "TinyEngine"
-   kind "ConsoleApp" 
+   kind "WindowedApp" 
    language "C++"
    targetdir "../bin/%{cfg.buildcfg}"
    
