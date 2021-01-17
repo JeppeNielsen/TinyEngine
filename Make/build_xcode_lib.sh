@@ -1,0 +1,1 @@
+./Premake/premake5 --file=TinyEngineLib.lua xcode4	
