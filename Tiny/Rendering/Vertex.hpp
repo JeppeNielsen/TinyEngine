@@ -8,8 +8,7 @@
 
 #pragma once
 #include <stdio.h>
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
+#include "Math.hpp"
 #include "Color.hpp"
 #include "OpenGL.hpp"
 #include <map>
@@ -29,10 +28,8 @@ struct VertexAttribute {
 
 template<class T>
 struct VertexAttributeType {
-    static const VertexAttribute attribute;
+    static const VertexAttribute attribute();
 };
-
-template<typename T> const VertexAttribute VertexAttributeType<T>::attribute;
 
 template<class Vertex>
 class VertexDescription {
@@ -63,7 +60,7 @@ public:
 
     template<class T>
     void SetAttibute(T& member, std::string name) {
-        VertexAttribute attribute = VertexAttributeType<T>::attribute;
+        VertexAttribute attribute = VertexAttributeType<T>::attribute();
         attribute.offset = (int)(((size_t)&member) - startOffset);
         attributes[name] = attribute;
     }
@@ -86,5 +83,6 @@ struct Vertex {
         description.SetAttibute(Color, "Color");
     }
 };
+
 
 }
