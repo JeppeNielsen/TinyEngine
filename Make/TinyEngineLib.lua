@@ -3,6 +3,7 @@ location "../Generated"
 
 workspace "TinyEngine"
    configurations { "Debug", "Release" }
+   buildoptions { "-Wno-deprecated-declarations" }
 
 project "TinyEngine"
    kind "StaticLib" 

@@ -284,7 +284,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
     
     [window orderFront:window];
     
-    [self windowDidResize:nullptr];
+    [self windowDidResize:[NSNotification alloc]];
 }
 
 - (void)windowWillClose:(NSNotification *)notification

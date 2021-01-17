@@ -189,12 +189,11 @@ struct State : IState {
         scene->AddComponent<Rotator>(quad2, 1.0f);
             
         
-        for (int x=0; x<10; x++) {
-            for (int y=0; y<10  ; y++) {
+        for (int x=0; x<200; x++) {
+            for (int y=0; y<200  ; y++) {
                 auto q = CreateQuad({x*1.0f,y*1.0f,0.0f}, {0.7f,0.7f,1.0f}, false, true ? quad1 : GameObjectNull);
             
                 auto q2 = CreateQuad({0.0,1.0,0.0f}, {0.7f,0.7f,1.0f}, false, q);
-                
                 
                 if (x == 4 && y == 4) {
                     scene->AddComponent<Rotator>(q, 1.0f);
@@ -277,6 +276,7 @@ struct State : IState {
     
     void Update(float dt) override {
         scene->Update();
+        registry.ResetChanged();
         auto mousePos = device.Input.GetTouchPosition(0);
         
         glm::vec2 screenSize = {device.Screen.Size().x, device.Screen.Size().y};
