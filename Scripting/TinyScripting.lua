@@ -1,5 +1,5 @@
 
-location "Generated"
+location "Build"
 
 workspace "TinyScriptingEngine"
    configurations { "Debug", "Release" }

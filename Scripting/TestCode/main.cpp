@@ -15,9 +15,9 @@ int main() {
     ScriptingEngine engine("/Users/jeppe/Downloads/clang+llvm-10.0.0-x86_64-apple-darwin");
     ScriptingContext context;
     
-    context.hppFiles.push_back("/Jeppes/TinyEngine/ScriptingFromLib/Scripts/Vector2.hpp");
-    context.cppFiles.push_back("/Jeppes/TinyEngine/ScriptingFromLib/Scripts/TestScript.cpp");
-    context.cppFiles.push_back("/Jeppes/TinyEngine/ScriptingFromLib/Scripts/TestScript2.cpp");
+    context.hppFiles.push_back("/Jeppes/TinyEngine/Scripting/Scripts/Vector2.hpp");
+    context.cppFiles.push_back("/Jeppes/TinyEngine/Scripting/Scripts/TestScript.cpp");
+    context.cppFiles.push_back("/Jeppes/TinyEngine/Scripting/Scripts/TestScript2.cpp");
     
     engine.Compile(context);
     

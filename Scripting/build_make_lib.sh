@@ -1,1 +1,1 @@
-./Premake/premake5 --file=TinyScriptingLib.lua cmake	
+../Make/Premake/premake5 --file=TinyScriptingLib.lua gmake2	
