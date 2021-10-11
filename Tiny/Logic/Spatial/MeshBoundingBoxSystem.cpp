@@ -31,5 +31,5 @@ void MeshBoundingBoxSystem::Update(const Mesh &mesh, LocalBoundingBox &localBoun
     }
     
     localBoundingBox.bounds.center = (min + max) * 0.5f;
-    localBoundingBox.bounds.extends = max - min;
+    localBoundingBox.bounds.extends = (max - min) * 0.5f;
 }
