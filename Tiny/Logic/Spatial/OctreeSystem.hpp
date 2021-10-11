@@ -46,7 +46,6 @@ namespace Tiny {
             octree.Remove(node);
         }
         
-        
         void Query(const BoundingFrustum& frustum, std::vector<Tiny::GameObject> &gameObjects) const {
             octree.Get(frustum, gameObjects);
         }
@@ -54,6 +53,10 @@ namespace Tiny {
         void Query(const Ray& ray, std::vector<Tiny::GameObject> &gameObjects) const {
             octree.Get(ray, gameObjects);
             //octree.GetRecursive(gameObjects);
+        }
+        
+        void Query(const BoundingBox& box, std::vector<Tiny::GameObject> &gameObjects) const {
+            octree.Get(box, gameObjects);
         }
 
         Octree<Tiny::GameObject> octree;

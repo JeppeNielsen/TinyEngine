@@ -69,6 +69,24 @@ namespace Tiny {
             }
         }
         
+        void Get(const BoundingBox& intersectBox, std::vector<T>& list) const {
+           if (!nodes) return;
+           
+           if (!intersectBox.Intersects(box)) {
+               return;
+           }
+           else {
+               for(size_t i = 0, size=nodes->size(); i<size; i++) {
+                   Node* node = nodes->at(i);
+                   if (intersectBox.Intersects(node->box)) list.push_back((T)node->data);
+               }
+               if (!children) return;
+               for (int i=0; i<8; i++) {
+                   children[i].Get(intersectBox, list);
+               }
+           }
+       }
+        
         const static unsigned MaxObjectsInNode = 32;
 
         Octree() : children(nullptr), nodes(nullptr), parent(nullptr) { }
