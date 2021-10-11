@@ -58,6 +58,7 @@ extern PFNGLUNMAPBUFFEROESPROC glUnmapBuffer;
 
     #include <OpenGL/gl.h>
     #define OPENGL_DESKTOP
+    #define GL_SILENCE_DEPRECATION
 
 #define DISABLE_MAP_BUFFER
 
