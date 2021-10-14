@@ -17,6 +17,7 @@ namespace Tiny {
     
         void Clear();
         bool Compile(const ScriptingContext& context);
+        std::string& GetCompilationErrors();
         
     private:
         template <class T>
@@ -37,7 +38,7 @@ namespace Tiny {
     private:
         void* GetAddressOfGlobal(const std::string& functionName);
         std::vector<std::string> GetArguments(const ScriptingContext& context);
-        void CompileCppFile(const std::string& cppFile);
+        bool CompileCppFile(const std::string& cppFile);
         std::vector<std::string> CreateDefaultArguments();
         std::string pipe_to_string( const char* command );
         std::string GetFirstFolder(const std::string& path);
@@ -46,6 +47,7 @@ namespace Tiny {
         std::vector<const char*> argumentsList;
         std::string clangLocation;
         std::vector<std::string> defaultArguments;
+        std::string compilationErrors;
     };
 }
 

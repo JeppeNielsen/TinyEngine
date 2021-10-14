@@ -13,6 +13,7 @@
 #include <dirent.h>
 
 #include "ScriptingEngine.hpp"
+#include "ScriptingErrorCatcher.hpp"
 
 using namespace Tiny;
 
@@ -43,13 +44,31 @@ bool ScriptingEngine::Compile(const ScriptingContext &context) {
     for(auto& s : arguments) {
         argumentsList.push_back(s.c_str());
     }
-    interpreter = new cling::Interpreter((int)argumentsList.size(), &argumentsList[0], clangLocation.c_str(), {}, true);
     
-    for(auto& cppFile : context.cppFiles) {
-        CompileCppFile(cppFile);
+    std::stringstream interpreterErrorsBuffer;
+    {
+        ScriptingErrorCatcher errorCatcher(interpreterErrorsBuffer);
+        interpreter = new cling::Interpreter((int)argumentsList.size(), &argumentsList[0], clangLocation.c_str(), {}, true);
     }
     
-    return true;
+    std::stringstream compilationErrorsBuffer;
+    bool anyCompilationErrors = false;
+    {
+        ScriptingErrorCatcher errorCatcher(compilationErrorsBuffer);
+        for(auto& cppFile : context.cppFiles) {
+            if (!CompileCppFile(cppFile)) {
+                anyCompilationErrors = true;
+                break;
+            }
+        }
+    }
+    compilationErrors = anyCompilationErrors ? compilationErrorsBuffer.str() : "";
+    
+    return !anyCompilationErrors;
+}
+
+std::string& ScriptingEngine::GetCompilationErrors() {
+    return compilationErrors;
 }
 
 void* ScriptingEngine::GetAddressOfGlobal(const std::string& functionName) {
@@ -71,7 +90,7 @@ std::vector<std::string> ScriptingEngine::GetArguments(const ScriptingContext &c
     return arguments;
 }
 
-void ScriptingEngine::CompileCppFile(const std::string &cppFile) {
+bool ScriptingEngine::CompileCppFile(const std::string &cppFile) {
     
     std::ifstream t(cppFile);
     std::stringstream buffer;
@@ -80,7 +99,9 @@ void ScriptingEngine::CompileCppFile(const std::string &cppFile) {
     auto code = buffer.str();
     
     auto& interpreter = GetInterpreter(this->interpreter);
-    interpreter.declare(code);
+    auto result = interpreter.declare(code);
+
+    return result == cling::Interpreter::kSuccess;
 }
 
 std::vector<std::string> ScriptingEngine::CreateDefaultArguments() {
@@ -92,6 +113,7 @@ std::vector<std::string> ScriptingEngine::CreateDefaultArguments() {
     arguments.push_back("-v");
     arguments.push_back("-std=c++14");
     arguments.push_back("-fno-rtti");
+    arguments.push_back("-Wno-nullability-completeness");
     arguments.push_back("-I" + sdkPath);
     arguments.push_back("-I" + clangLocation + "/include/c++/v1");
     arguments.push_back("-I" + clangLocation + "/lib/clang/" + GetFirstFolder(clangLocation + "/lib/clang") + "/include");
