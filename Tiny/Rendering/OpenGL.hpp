@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#define GL_SILENCE_DEPRECATION
+
 #ifdef IPHONE 
 
 	#include <OpenGLES/ES3/gl.h>
