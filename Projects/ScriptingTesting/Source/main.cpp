@@ -38,31 +38,18 @@ int main() {
         
         //freopen("new_stdout","w",stdout);
        
-            //----do something;
-
-        
-        //std::streambuf *old = std::cerr.rdbuf(); // <-- save
-        //std::stringstream ss;
-        //std::cerr.rdbuf (ss.rdbuf());       // <-- redirect
-        
         if(!engine.Compile(context)) {
-            std::cout << " compilation failed" << std::endl;
-            
+            std::cout << " compilation failed:" << std::endl;
             std::cout << engine.GetCompilationErrors() << std::endl;
-            //std::cerr.rdbuf (old);
             return 1;
         }
-        
-        //std::cout << "Errors: \n" << engine.GetCompilationErrors();
-        
-        //std::cerr.rdbuf (old);
         
         //freopen("/dev/tty","r",stdout);
         
         auto getResult = engine.GetFunction<int()>("GetResult");
         int result = getResult();
         std::cout << "result from script : " << result << "\n";
-          
+        
         std::chrono::nanoseconds sleepTime(100000);
         
         std::this_thread::sleep_for(sleepTime);
