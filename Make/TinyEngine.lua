@@ -17,8 +17,9 @@ project "TinyEngine"
    }
 
    includedirs {
-      "../Tiny/**",
-      "../Tiny/Libs/"
+      "../External/glm/",
+      "../External/minijson_reader/",
+      "../External/minijson_writer/" 
    }
 
    sysincludedirs {

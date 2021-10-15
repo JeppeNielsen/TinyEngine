@@ -148,7 +148,7 @@ struct State : IState {
         
         device.Input.ButtonDown.Bind([this] (ButtonEvent e) {
             if (e.Id == "n") {
-                CreateWindow({0,0}, {300,200});
+                CreateWindow({0,0}, {500,500});
             }
         });
     }

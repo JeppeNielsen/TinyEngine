@@ -1,0 +1,9 @@
+[submodule "External/minijson_reader"]
+	path = External/minijson_reader
+	url = https://github.com/giacomodrago/minijson_reader.git
+[submodule "External/minijson_writer"]
+	path = External/minijson_writer
+	url = https://github.com/giacomodrago/minijson_writer.git
+[submodule "External/glm"]
+	path = External/glm
+	url = https://github.com/JeppeNielsen/glm.git

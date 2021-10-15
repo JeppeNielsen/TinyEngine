@@ -28,7 +28,8 @@ EditorScene::EditorScene(EditorRegistryType& registry, InputDevice& device, Vert
     }
     auto mesh = CreateMesh();
     auto first = CreateQuad({0,0,0}, {2,2,1}, mesh);
-    CreateQuad({3,0,0}, {2,2,1}, mesh, first);
+    auto second = CreateQuad({3,0,0}, {2,2,1}, mesh, first);
+    CreateQuad({2,0,0}, {1,1,1}, mesh, second);
     
     //scene.Log = true;
 }

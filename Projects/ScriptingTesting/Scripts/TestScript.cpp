@@ -2,6 +2,16 @@
 
 #include "Vector2.hpp"
 
+struct Position {
+    float x;
+    float y;
+};
+
+struct Velocity {
+    float x;
+    float y;
+};
+
 template<typename T>
 struct List {
     T item;
@@ -24,7 +34,9 @@ extern "C" {
         List<int> list;
         list.item = 123;
         
-        //return (int)result.Length() + add(11, 11) + list.item;
+        
+        return (int)result.Length() + add(11, 11) + list.item;
+        
         return list.item;
         
     }

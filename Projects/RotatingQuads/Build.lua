@@ -27,6 +27,10 @@ project "RotatingQuads"
       
    filter { "system:not windows" }
       links { "Cocoa.framework", "CoreVideo.framework", "OpenGL.framework" }
+      files { 
+         "../Tiny/Platform/OSX/**.h", 
+         "../Tiny/Platform/OSX/**.mm", 
+      }
       
    filter "configurations:Debug"
       defines { "DEBUG" }

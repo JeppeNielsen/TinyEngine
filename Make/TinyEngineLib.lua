@@ -16,11 +16,12 @@ project "TinyEngine"
 
    includedirs {
       "../Tiny/**",
-      "../Tiny/Libs/"
    }
 
    sysincludedirs {
-      "../Tiny/Libs"
+      "../External/glm/",
+      "../External/minijson_reader/",
+      "../External/minijson_writer/" 
    }
 
    filter { "system:windows" }

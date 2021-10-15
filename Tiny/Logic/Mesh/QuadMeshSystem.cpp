@@ -20,19 +20,19 @@ void QuadMeshSystem::Update(const QuadMesh &quadMesh, const Sizeable &sizeable, 
     mesh.vertices.clear();
     mesh.triangles.clear();
     
-    /*mesh.vertices.push_back({ { 0.0f, 0.0f, 0.0f }, {0,0}, Color(0.0f, 0.0f, 1.0f) });
+    mesh.vertices.push_back({ { 0.0f, 0.0f, 0.0f }, {0,0}, Color(0.0f, 0.0f, 1.0f) });
     mesh.vertices.push_back({ { sizeable.size.x, 0.0f, 0.0f }, {1.0f,0}, Color(0.0f, 0.0f, 1.0f) });
     mesh.vertices.push_back({ { sizeable.size.x, sizeable.size.y, 0.0f }, {1.0f,1.0f}, Color(0.0f, 0.0f, 1.0f) });
     mesh.vertices.push_back({ { 0.0f, sizeable.size.y, 0.0f }, {0,0}, Color(0.0f, 1.0f, 1.0f) });
-    */
     
-    const float height = 32;
+    /*
+    const float height = 0;
     
     mesh.vertices.push_back({ { 0.0f, sizeable.size.y - height, 0.0f }, {0,0}, Color(0.0f, 0.0f, 1.0f) });
     mesh.vertices.push_back({ { sizeable.size.x, sizeable.size.y - height, 0.0f }, {1.0f,0}, Color(0.0f, 0.0f, 1.0f) });
     mesh.vertices.push_back({ { sizeable.size.x, sizeable.size.y, 0.0f }, {1.0f,1.0f}, Color(0.0f, 0.0f, 1.0f) });
     mesh.vertices.push_back({ { 0.0f, sizeable.size.y, 0.0f }, {0,0}, Color(0.0f, 1.0f, 1.0f) });
-    
+    */
     
     mesh.triangles.push_back(0);
     mesh.triangles.push_back(1);
