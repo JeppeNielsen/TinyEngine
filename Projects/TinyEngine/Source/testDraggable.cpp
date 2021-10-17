@@ -269,7 +269,7 @@ struct State : IState {
 
 
 
-int main() {
+int main_draggable() {
     Engine e;
     e.Start<State>();
     return 0;

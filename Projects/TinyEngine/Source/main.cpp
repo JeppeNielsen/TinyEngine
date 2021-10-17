@@ -280,7 +280,7 @@ struct State2 : IState {
 
 
 
-int main_squares() {
+int main() {
     Engine e;
     e.Start<State2>();
     return 0;

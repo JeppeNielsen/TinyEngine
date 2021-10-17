@@ -9,6 +9,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <memory>
 #include "FieldSerializer.hpp"
 
 namespace Tiny {

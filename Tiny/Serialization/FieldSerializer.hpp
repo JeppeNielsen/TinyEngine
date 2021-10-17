@@ -12,25 +12,24 @@
 #include "minijson_reader.hpp"
 #include <sstream>
 #include <map>
+#include "Math.hpp"
 
 namespace Tiny {
     template<typename T, typename I = void>
     struct FieldSerializer {
         static void Serialize(minijson::object_writer& writer, const std::string& name, const T& field) {
-            //writer.write(name.c_str(), field);
             std::stringstream s;
             s<<field;
             writer.write(name.c_str(), s.str());
         }
         
         static void Deserialize(minijson::istream_context& context, minijson::value& value, T& field) {
-            //minijson::ignore(context);
-            
             if (value.type() != minijson::String) return;
-            field = T::Deserialize(value.as_string());
+            //field = T::Deserialize(value.as_string());
         }
     };
-  
+
+
     template<>
     struct FieldSerializer<int> {
         static void Serialize(minijson::object_writer& writer, const std::string& name, const int& field) {
@@ -42,7 +41,7 @@ namespace Tiny {
             field = (int)value.as_long();
         }
     };
-    
+
     template<>
     struct FieldSerializer<float> {
         static void Serialize(minijson::object_writer& writer, const std::string& name, const float& field) {
@@ -54,7 +53,7 @@ namespace Tiny {
             field = (float)value.as_double();
         }
     };
-    
+
     template<>
     struct FieldSerializer<short> {
         static void Serialize(minijson::object_writer& writer, const std::string& name, const short& field) {
@@ -66,7 +65,7 @@ namespace Tiny {
             field = (short)value.as_long();
         }
     };
-    
+
     template<>
     struct FieldSerializer<std::string> {
         static void Serialize(minijson::object_writer& writer, const std::string& name, const std::string& field) {
@@ -78,7 +77,7 @@ namespace Tiny {
             field = value.as_string();
         }
     };
-    
+
     template<>
     struct FieldSerializer<bool> {
         static void Serialize(minijson::object_writer& writer, const std::string& name, const bool& field) {
@@ -90,7 +89,7 @@ namespace Tiny {
             field = value.as_bool();
         }
     };
-    
+
     template<>
     struct FieldSerializer<uint64_t> {
         static void Serialize(minijson::object_writer& writer, const std::string& name, const uint64_t& field) {
@@ -102,7 +101,7 @@ namespace Tiny {
             field = ((uint64_t)value.as_long());
         }
     };
-    
+
     template<typename T>
     struct FieldSerializer<std::vector<T>> {
         static void Serialize(minijson::object_writer& writer, const std::string& name, const std::vector<T>& vector) {
@@ -121,28 +120,15 @@ namespace Tiny {
             });
         }
     };
-    
-    template <typename T>
-    struct HasGetTypeMethod {
-        struct dummy { };
 
-        template <typename C, typename P>
-        static auto test(P * p) -> decltype(std::declval<C>().GetType(), std::true_type());
-
-        template <typename, typename>
-        static std::false_type test(...);
-
-        typedef decltype(test<T, dummy>(nullptr)) type;
-        static const bool value = std::is_same<std::true_type, decltype(test<T, dummy>(nullptr))>::value;
-    };
-    
+/*
     template<typename T>
-    struct FieldSerializer<T, typename std::enable_if< HasGetTypeMethod<T>::value >::type> {
+    struct FieldSerializer<T, void> {
         static void Serialize(minijson::object_writer& writer, const std::string& name, const T& getTypeObject) {
             auto nestedObject = writer.nested_object(name.c_str());
        
-            auto type = ((T&)getTypeObject).GetType();
-            type.Serialize(nestedObject);
+            auto type = TypeInfoFactory::Create<T>(getTypeObject);
+            type->Serialize(nestedObject);
             
             nestedObject.close();
         }
@@ -152,7 +138,8 @@ namespace Tiny {
             type.Deserialize(context);
         }
     };
-    
+ */
+
     template<typename Key, typename Value>
     struct FieldSerializer<std::map<Key, Value>> {
         static void Serialize(minijson::object_writer& writer, const std::string& key, const std::map<Key, Value>& value) {
@@ -167,7 +154,7 @@ namespace Tiny {
             }
             array.close();
         }
-    
+
         static void Deserialize(minijson::istream_context& context, minijson::value& value, std::map<Key, Value>& map) {
             if (value.type() != minijson::Array) return;
             minijson::parse_array(context, [&] (minijson::value v) {
@@ -189,7 +176,7 @@ namespace Tiny {
             });
         }
     };
-    
+
     template<typename T>
     struct FieldSerializer<T, typename std::enable_if< std::is_enum<T>::value >::type> {
         static void Serialize(minijson::object_writer& writer, const std::string& key, const T& value) {
@@ -202,5 +189,29 @@ namespace Tiny {
             field = enumValue;
         }
     };
-    
+
+    template<>
+    struct FieldSerializer<glm::vec2> {
+        static void Serialize(minijson::object_writer& writer, const std::string& name, const glm::vec2& field) {
+            writer.write(name.c_str(), field.x);
+        }
+        
+        static void Deserialize(minijson::istream_context& context, minijson::value& value, glm::vec2& field) {
+            if (value.type() != minijson::Number) return;
+            field.x = (float)value.as_double();
+        }
+    };
+
+    template<>
+    struct FieldSerializer<glm::vec3> {
+        static void Serialize(minijson::object_writer& writer, const std::string& name, const glm::vec3& field) {
+            writer.write(name.c_str(), field.x);
+        }
+        
+        static void Deserialize(minijson::istream_context& context, minijson::value& value, glm::vec3& field) {
+            if (value.type() != minijson::Number) return;
+            field.x = (float)value.as_double();
+        }
+    };
+
 }

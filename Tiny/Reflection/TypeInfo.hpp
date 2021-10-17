@@ -9,9 +9,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <memory>
 #include "FieldInfo.hpp"
-#include "ClassNameHelper.hpp"
 #include "minijson_reader.hpp"
 #include "minijson_writer.hpp"
 
@@ -21,6 +19,7 @@ namespace Tiny {
         using FieldCollection = std::vector<FieldInfo>;
     
         TypeInfo(const std::string& name);
+        TypeInfo(TypeInfo&&) = default;
         void Serialize(minijson::object_writer& writer);
         void Deserialize(minijson::istream_context& context);
         const std::string& Name() const;
@@ -37,19 +36,5 @@ namespace Tiny {
         
         FieldCollection fields;
     };
-    
-#define TYPE_FIELDS_BEGIN \
-public: \
-Mini::TypeInfo GetType() { \
-    const static auto& name = ClassNameHelper::GetName<std::remove_const_t<std::remove_pointer_t<decltype(this)>>>(); \
-    Mini::TypeInfo info(name);
 
-#define TYPE_FIELD(field) \
-    info.AddField(#field, this->field);
-
-#define TYPE_FIELDS_END \
-        return info; \
-     \
-} \
-private:
 }
