@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include "ScriptingEngine.hpp"
-#include "ScriptData.hpp"
+#include "ScriptingParser.hpp"
 #include <chrono>
 #include <thread>
 #include <sstream>
@@ -65,12 +65,15 @@ int main() {
     
     
     
-    ScriptData scriptData(clangPath);
+    ScriptingParser parser(clangPath);
     
-    scriptData.Parse(context, [](auto s) { return true; });
+    ScriptingParserResult parserResult;
+    if (!parser.Parse(context, [](auto s) { return true; }, parserResult)) {
+        std::cout << "Parsing failed " << std::endl;
+    }
     
     std::cout << "Components:"<<std::endl;
-    for(auto g : scriptData.components) {
+    for(auto g : parserResult.components) {
         std::cout << g.name << std::endl;
         
         for(auto field : g.fields) {
@@ -79,7 +82,7 @@ int main() {
     }
     
     std::cout << "Systems:"<<std::endl;
-    for (auto s : scriptData.systems) {
+    for (auto s : parserResult.systems) {
         std::cout << s.name << std::endl;
     }
     
