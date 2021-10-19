@@ -1,6 +1,7 @@
 #include <vector>
+#include "Scene.hpp"
 
-#include "Vector2.hpp"
+using namespace Tiny;
 
 struct Position {
     float x;
@@ -12,32 +13,40 @@ struct Velocity {
     float y;
 };
 
-template<typename T>
-struct List {
-    T item;
+struct VelocitySystem : Tiny::System<Position, const Velocity> {
+  
+    void Update(Position& position, const Velocity& velocity) {
+        position.x += velocity.x;
+        position.y += velocity.y;
+    }
 
 };
 
+
+
 extern "C" {
     int GetResult() {
-    
-        auto add = [] (auto a, auto b) {
-            return a+b;
-        };
-    
-        Vector2 vec1 {10,10};
-        Vector2 vec2 {10,10};
-        Vector2 vec3 {10,10};
-
-        Vector2 result = vec1 + vec2 - vec3;
-
-        List<int> list;
-        list.item = 123;
         
+        using ComponentTypes = ComponentTypes<Position, Velocity>;
+        using Registry = Registry<ComponentTypes>;
+        using Systems = SystemTypes<VelocitySystem>;
+        using Scene = Tiny::Scene<Registry, Systems>;
         
-        return (int)result.Length() + add(11, 11) + list.item;
+        Registry registry;
         
-        return list.item;
+        Scene scene(registry);
+        
+        auto go = scene.CreateGameObject();
+        
+        scene.AddComponent<Position>(go);
+        scene.AddComponent<Velocity>(go, 1.0f, -2.0f);
+        
+        scene.Update();
+        scene.Update();
+        
+        auto position = scene.GetComponent<Position>(go);
+        
+        return (int)position.y;
         
     }
 }

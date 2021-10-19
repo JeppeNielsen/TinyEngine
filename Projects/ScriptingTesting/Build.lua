@@ -54,11 +54,13 @@ project "ScriptingTesting"
    targetdir "bin/%{cfg.buildcfg}"
 
    files { 
-      "Source/main.cpp"
+      "Source/**.cpp",
+      "Source/**.hpp",
    }
    
    sysincludedirs {
       "../../Scripting/Include",
+      "Include",
    }
 
    links {
