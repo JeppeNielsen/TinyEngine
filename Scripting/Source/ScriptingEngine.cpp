@@ -111,7 +111,7 @@ std::vector<std::string> ScriptingEngine::CreateDefaultArguments() {
     std::string sdkPath = pipe_to_string("xcrun --sdk macosx --show-sdk-path") + "/usr/include";
     
     arguments.push_back("-v");
-    arguments.push_back("-std=c++14");
+    arguments.push_back("-std=c++17");
     arguments.push_back("-fno-rtti");
     arguments.push_back("-Wno-nullability-completeness");
     arguments.push_back("-I" + sdkPath);
