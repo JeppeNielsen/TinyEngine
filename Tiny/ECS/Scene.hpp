@@ -311,7 +311,7 @@ public:
         return std::get<System>(systems);
     }
         
-    void Update() {
+    void Update() override {
         if (Log) {
             std::cout << "Scene::Update: start\n";
         }

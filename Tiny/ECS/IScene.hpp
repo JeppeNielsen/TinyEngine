@@ -14,5 +14,6 @@ namespace Tiny {
         virtual GameObject CreateGameObject() = 0;
         virtual void RemoveGameObject(const GameObject gameObject) = 0;
         virtual bool IsGameObjectRemoved(const GameObject gameObject) const = 0;
+        virtual void Update() = 0;
     };
 }
