@@ -112,6 +112,8 @@ std::string getCursorType( CXCursor cursor )
   return result;
 }
 
+static std::string lastDerivedName = "";
+
 CXChildVisitResult parseCode(CXCursor cursor, CXCursor parent, CXClientData clientData) {
     CXSourceLocation location = clang_getCursorLocation( cursor );
     if (clang_Location_isInSystemHeader(location) != 0) {
@@ -130,10 +132,15 @@ CXChildVisitResult parseCode(CXCursor cursor, CXCursor parent, CXClientData clie
         isSystem = false;
     }
     
+    if (cursor.kind == CXCursor_TemplateRef) {
+        lastDerivedName = cursorSpelling;
+    }
+    
     if (cursor.kind == CXCursor_Namespace) {
         nameSpace = cursorSpelling;
         isSystem = false;
     } else if (cursor.kind == CXCursor_StructDecl || cursor.kind == CXCursor_ClassDecl) {
+        
         
         ScriptingParserResult::Component component;
         if (nameSpace!="") {
@@ -148,7 +155,7 @@ CXChildVisitResult parseCode(CXCursor cursor, CXCursor parent, CXClientData clie
     } else if (cursor.kind == CXCursor_TemplateRef && cursorSpelling == "System") {
         result.systems.push_back({result.components.back().name});
         isSystem = true;
-    } else if (cursor.kind == CXCursor_TypeRef && isSystem && parent.kind == CXCursor_CXXBaseSpecifier) {
+    } else if (cursor.kind == CXCursor_TypeRef && isSystem && parent.kind == CXCursor_CXXBaseSpecifier && lastDerivedName!="SystemDependencies") {
         result.systems.back().components.push_back(cursorSpelling);
     } else if (cursor.kind == CXCursor_FieldDecl && !result.components.empty()) {
         isSystem = false;

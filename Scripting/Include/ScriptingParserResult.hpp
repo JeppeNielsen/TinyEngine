@@ -36,6 +36,8 @@ namespace Tiny {
         Components components;
         
         Component* FindComponent(const std::string& name);
+        
+        void ToStream(std::ostream& stream);
     
     };
 }

@@ -54,7 +54,7 @@ bool ScriptingEngine::Compile(const ScriptingContext &context) {
     std::stringstream compilationErrorsBuffer;
     bool anyCompilationErrors = false;
     {
-        ScriptingErrorCatcher errorCatcher(compilationErrorsBuffer);
+        //ScriptingErrorCatcher errorCatcher(compilationErrorsBuffer);
         for(auto& cppFile : context.cppFiles) {
             if (!CompileCppFile(cppFile)) {
                 anyCompilationErrors = true;
@@ -114,9 +114,9 @@ std::vector<std::string> ScriptingEngine::CreateDefaultArguments() {
     arguments.push_back("-std=c++17");
     arguments.push_back("-fno-rtti");
     arguments.push_back("-Wno-nullability-completeness");
-    arguments.push_back("-I" + sdkPath);
     arguments.push_back("-I" + clangLocation + "/include/c++/v1");
     arguments.push_back("-I" + clangLocation + "/lib/clang/" + GetFirstFolder(clangLocation + "/lib/clang") + "/include");
+    arguments.push_back("-I" + sdkPath);
     
     return arguments;
 }
