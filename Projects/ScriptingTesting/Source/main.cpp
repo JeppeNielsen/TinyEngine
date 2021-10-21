@@ -6,11 +6,18 @@
 //
 
 #include <iostream>
-#include "ScriptingEngine.hpp"
-#include "ScriptingParser.hpp"
 #include <chrono>
 #include <thread>
 #include <sstream>
+#include <fstream>
+
+#include "ScriptingEngine.hpp"
+#include "ScriptingParser.hpp"
+#include "ScriptingCreator.hpp"
+#include "ScriptingContextFactory.hpp"
+
+#include "IScene.hpp"
+#include "TypeInfo.hpp"
 
 using namespace Tiny;
 
@@ -29,88 +36,77 @@ const std::string clangPath = "/Users/jeppe/Jeppes/clang+llvm-10.0.0-x86_64-appl
 
 int main() {
     
-    ScriptingContext context;
+    ScriptingContextFactory contextFactory;
     
-    context.hppFiles.push_back("../../Tiny/ECS/ComponentContainer.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/ComponentView.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/GameObject.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/GameObjectCollection.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/GameObjectDatabase.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/IScene.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/Registry.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/Scene.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/ECS.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/SceneModifier.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/SystemTask.hpp");
-    
-    context.hppFiles.push_back("../../Tiny/ECS/Systems/RemoveDependencies.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/Systems/System.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/Systems/SystemBase.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/Systems/SystemChanged.hpp");
-    
-    context.hppFiles.push_back("../../Tiny/ECS/Systems/SystemChangedGameObject.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/Systems/SystemDependencies.hpp");
-    context.hppFiles.push_back("../../Tiny/ECS/Systems/SystemTypes.hpp");
-    
-    context.hppFiles.push_back("../../Tiny/Tools/Timer.hpp");
-    
-    
-    context.cppFiles.push_back("../../Tiny/ECS/GameObjectCollection.cpp");
-    context.cppFiles.push_back("../../Tiny/ECS/GameObjectDatabase.cpp");
-    context.cppFiles.push_back("../../Tiny/ECS/SystemTask.cpp");
-    
-    //context.cppFiles.push_back("../../Tiny/Tools/Timer.cpp");
-    
-    context.cppFiles.push_back("Scripts/TestScript.cpp");
-    
-    
+    ScriptingContext parserContext = contextFactory.CreateContext();
+    parserContext.cppFiles.push_back("Scripts/TestScript.cpp");
     
     ScriptingParser parser(clangPath);
     
     ScriptingParserResult parserResult;
-    if (!parser.Parse(context, [](auto s) { return true; }, parserResult)) {
+    if (!parser.Parse(parserContext, [](auto s) { return true; }, parserResult)) {
         std::cout << "Parsing failed " << std::endl;
     }
+    parserResult.ToStream(std::cout);
     
-    std::cout << "Components:"<<std::endl;
-    for(auto g : parserResult.components) {
-        std::cout << g.name << std::endl;
-        
-        for(auto field : g.fields) {
-            std::cout << " -> " << field.type << " : " <<  field.name << std::endl;
-        }
+    if (true)
+    {
+        ScriptingCreator creator;
+        std::ofstream file;
+        file.open("ScriptMain.cpp");
+        creator.WriteMainCppFile(file, parserResult);
     }
-    
-    std::cout << "Systems:"<<std::endl;
-    for (auto s : parserResult.systems) {
-        std::cout << s.name << std::endl;
-    }
-    
-    return 0;
     
     ScriptingEngine engine(clangPath);
     
+    ScriptingContext context = contextFactory.CreateContext();
+    context.cppFiles.push_back("Scripts/TestScript.cpp");
+    context.cppFiles.push_back("ScriptMain.cpp");
     
     while (true) {
         
-        
-        //freopen("new_stdout","w",stdout);
-       
         if(!engine.Compile(context)) {
             std::cout << " compilation failed:" << std::endl;
             std::cout << engine.GetCompilationErrors() << std::endl;
             return 1;
         }
         
-        //freopen("/dev/tty","r",stdout);
+        auto createRegistryFunction = engine.GetFunction<void*()>("CreateRegistry");
+        auto createSceneFunction = engine.GetFunction<IScene*(void*)>("CreateScene");
+        auto addComponentFunction = engine.GetFunction<void(IScene*, GameObject, int)>("AddComponent");
+        auto getComponentFunction = engine.GetFunction<TypeInfo*(IScene*, GameObject, int)>("GetComponent");
         
-        auto getResult = engine.GetFunction<int()>("GetResult");
-        int result = getResult();
-        std::cout << "result from script : " << result << "\n";
         
-        std::chrono::nanoseconds sleepTime(100000);
+        auto registry = createRegistryFunction();
+        auto scene = createSceneFunction(registry);
         
-        std::this_thread::sleep_for(sleepTime);
+        scene->Update();
+        
+        auto object1 = scene->CreateGameObject();
+        addComponentFunction(scene, object1, 0);
+        addComponentFunction(scene, object1, 1);
+        
+        
+        TypeInfo* velocityInfo = getComponentFunction(scene, object1, 1);
+        
+        FieldInfo& xField = velocityInfo->fields[0];
+        auto* field = xField.GetField<float>();
+        *field = 123.0f;
+        
+        FieldInfo& yField = velocityInfo->fields[1];
+        auto* fieldY = yField.GetField<float>();
+        *fieldY = 1.0f;
+        
+        
+        
+        scene->Update();
+        scene->Update();
+        
+         
+        
+        
+        //std::chrono::nanoseconds sleepTime(100000);
+        //std::this_thread::sleep_for(sleepTime);
         
         break;
     }

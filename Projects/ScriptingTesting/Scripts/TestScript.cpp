@@ -1,7 +1,13 @@
 #include <vector>
 #include "Scene.hpp"
+#include "SystemDependencies.hpp"
 
 using namespace Tiny;
+
+struct Vec2 {
+    float x;
+    float y;
+};
 
 struct Position {
     float x;
@@ -13,40 +19,49 @@ struct Velocity {
     float y;
 };
 
-struct VelocitySystem : Tiny::System<Position, const Velocity> {
+struct VelocitySystem : System<Position, const Velocity> {
   
     void Update(Position& position, const Velocity& velocity) {
         position.x += velocity.x;
         position.y += velocity.y;
+        
+        std::cout<<"VelocitySystem : x: "<< position.x << ", y: "<<position.y << std::endl;
+    }
+
+};
+
+struct PositionSystem : System<Position>, SystemDependencies<VelocitySystem> {
+    
+    
+    void Initialize(VelocitySystem& vel) {
+        
+    }
+  
+    void Update(Position& position) {
+        position.x += 1;
+        position.y += 10;
+        
+        std::cout<<"PositionSystem : x: "<< position.x << ", y: "<<position.y << std::endl;
+    
     }
 
 };
 
 
-
-extern "C" {
-    int GetResult() {
-        
-        using ComponentTypes = ComponentTypes<Position, Velocity>;
-        using Registry = Registry<ComponentTypes>;
-        using Systems = SystemTypes<VelocitySystem>;
-        using Scene = Tiny::Scene<Registry, Systems>;
-        
-        Registry registry;
-        
-        Scene scene(registry);
-        
-        auto go = scene.CreateGameObject();
-        
-        scene.AddComponent<Position>(go);
-        scene.AddComponent<Velocity>(go, 1.0f, -2.0f);
-        
-        scene.Update();
-        scene.Update();
-        
-        auto position = scene.GetComponent<Position>(go);
-        
-        return (int)position.y;
+struct AccSystem : System<Velocity> {
+    
+    void Initialize(PositionSystem& system) {
         
     }
-}
+    
+    void Update(Velocity& vel) {
+        vel.x = 0;
+        vel.y = 0;
+        
+        std::cout<<"AccSystem : x: "<< vel.x << ", y: "<<vel.y << std::endl;
+    
+  
+    }
+    
+};
+

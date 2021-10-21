@@ -61,6 +61,12 @@ project "ScriptingTesting"
    sysincludedirs {
       "../../Scripting/Include",
       "Include",
+      "../../Tiny/ECS",
+      "../../Tiny/",
+      "../../Tiny/Reflection",
+      "../../Tiny/Serialization",
+      "../../External/minijson_writer",
+      "../../External/minijson_reader"
    }
 
    links {
