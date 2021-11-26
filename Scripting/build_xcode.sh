@@ -1,1 +1,1 @@
-../Make/Premake/premake5 --file=TinyScripting.lua xcode4	
+../Make/Premake/premake5 --file=TinyScripting.lua xcode4

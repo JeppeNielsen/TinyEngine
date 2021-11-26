@@ -47,8 +47,8 @@ bool ScriptingEngine::Compile(const ScriptingContext &context) {
     
     std::stringstream interpreterErrorsBuffer;
     {
-        ScriptingErrorCatcher errorCatcher(interpreterErrorsBuffer);
-        interpreter = new cling::Interpreter((int)argumentsList.size(), &argumentsList[0], clangLocation.c_str(), {}, true);
+        //ScriptingErrorCatcher errorCatcher(interpreterErrorsBuffer);
+        interpreter = new cling::Interpreter((int)argumentsList.size(), &argumentsList[0], clangLocation.c_str(), {}, false);
     }
     
     std::stringstream compilationErrorsBuffer;
@@ -108,15 +108,15 @@ std::vector<std::string> ScriptingEngine::CreateDefaultArguments() {
     
     std::vector<std::string> arguments;
     
-    std::string sdkPath = pipe_to_string("xcrun --sdk macosx --show-sdk-path") + "/usr/include";
+    //std::string sdkPath = pipe_to_string("xcrun --sdk macosx --show-sdk-path") + "/usr/include";
     
     arguments.push_back("-v");
-    arguments.push_back("-std=c++17");
+    arguments.push_back("-std=c++14");
     arguments.push_back("-fno-rtti");
     arguments.push_back("-Wno-nullability-completeness");
-    arguments.push_back("-I" + clangLocation + "/include/c++/v1");
-    arguments.push_back("-I" + clangLocation + "/lib/clang/" + GetFirstFolder(clangLocation + "/lib/clang") + "/include");
-    arguments.push_back("-I" + sdkPath);
+    //arguments.push_back("-I" + clangLocation + "/include/c++/v1");
+    //arguments.push_back("-I" + clangLocation + "/lib/clang/" + GetFirstFolder(clangLocation + "/lib/clang") + "/include");
+    //arguments.push_back("-I" + sdkPath);
     
     return arguments;
 }

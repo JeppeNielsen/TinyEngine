@@ -232,13 +232,6 @@ std::vector<std::string> ScriptingParser::CreateDefaultArguments() {
     arguments.push_back("-I" + clangLocation + "/lib/clang/" + GetFirstFolder(clangLocation + "/lib/clang") + "/include");
     arguments.push_back("-I" + sdkPath);
     
-    /*arguments.push_back("-std=c++11");
-    arguments.push_back("-stdlib=libc++");
-    arguments.push_back("-I/Users/Jeppe/Downloads/clang+llvm-3.7.0-x86_64-apple-darwin/include/c++/v1");
-    arguments.push_back("-I/usr/include");
-    arguments.push_back("-I/usr/include/c++/4.2.1/");
-    arguments.push_back("-I/Users/Jeppe/Downloads/clang+llvm-3.7.0-x86_64-apple-darwin/lib/clang/3.7.0/include");*/
-    
     return arguments;
 }
 
