@@ -32,9 +32,46 @@ struct Position {
     int y;
 };
 
-const std::string clangPath = "/Users/jeppe/Jeppes/clang+llvm-10.0.0-x86_64-apple-darwin";
+const std::string clangPath = "/Users/jeppe/Jeppes/ClingBuild/build/Output";
 
 int main() {
+    
+    
+    /*
+    
+    ScriptingContext scriptFiles;
+    scriptFiles.cppFiles.push_back("Build/TestScript.cpp");
+    
+    ScriptingParser scriptParser(clangPath);
+    
+    ScriptingParserResult scriptParserResult;
+    if (!scriptParser.Parse(scriptFiles, [](auto s) { return true; }, scriptParserResult)) {
+        std::cout << "Parsing failed " << std::endl;
+        return EXIT_FAILURE;
+    }
+    scriptParserResult.ToStream(std::cout);
+    
+    return 0;
+    
+    
+    ScriptingEngine scriptRunner(clangPath);
+    
+    if (!scriptRunner.Compile(scriptFiles)) {
+        std::cout << "Failed" << std::endl;
+        return 0;
+    }
+    
+    auto function = scriptRunner.GetFunction<int()>("TestMyScript");
+    
+    auto ret = function();
+    std::cout << ret << std::endl;
+    
+    return 0;
+     */
+     
+    while (true) {
+        
+        auto startTime = std::chrono::high_resolution_clock::now();
     
     ScriptingContextFactory contextFactory;
     
@@ -46,6 +83,7 @@ int main() {
     ScriptingParserResult parserResult;
     if (!parser.Parse(parserContext, [](auto s) { return true; }, parserResult)) {
         std::cout << "Parsing failed " << std::endl;
+        return EXIT_FAILURE;
     }
     parserResult.ToStream(std::cout);
     
@@ -63,12 +101,14 @@ int main() {
     context.cppFiles.push_back("Scripts/TestScript.cpp");
     context.cppFiles.push_back("ScriptMain.cpp");
     
-    while (true) {
+    
+        
+       
         
         if(!engine.Compile(context)) {
             std::cout << " compilation failed:" << std::endl;
             std::cout << engine.GetCompilationErrors() << std::endl;
-            return 1;
+            continue;
         }
         
         auto createRegistryFunction = engine.GetFunction<void*()>("CreateRegistry");
@@ -76,6 +116,8 @@ int main() {
         auto addComponentFunction = engine.GetFunction<void(IScene*, GameObject, int)>("AddComponent");
         auto getComponentFunction = engine.GetFunction<TypeInfo*(IScene*, GameObject, int)>("GetComponent");
         
+        auto deleteRegistryFunction = engine.GetFunction<void(void*)>("DeleteRegistry");
+        auto deleteSceneFunction = engine.GetFunction<void(void*)>("DeleteScene");
         
         auto registry = createRegistryFunction();
         auto scene = createSceneFunction(registry);
@@ -85,9 +127,9 @@ int main() {
         auto object1 = scene->CreateGameObject();
         addComponentFunction(scene, object1, 0);
         addComponentFunction(scene, object1, 1);
+        addComponentFunction(scene, object1, 2);
         
-        
-        TypeInfo* velocityInfo = getComponentFunction(scene, object1, 1);
+        TypeInfo* velocityInfo = getComponentFunction(scene, object1, 2);
         
         FieldInfo& xField = velocityInfo->fields[0];
         auto* field = xField.GetField<float>();
@@ -97,18 +139,34 @@ int main() {
         auto* fieldY = yField.GetField<float>();
         *fieldY = 1.0f;
         
+        TypeInfo* renderableInfo = getComponentFunction(scene, object1, 1);
+        
+        FieldInfo& imageNoField = renderableInfo->fields[0];
+        auto* imageNo = imageNoField.GetField<float>();
+        *imageNo = 12.0f;
         
         
-        scene->Update();
-        scene->Update();
+        for (int i=0; i<10; i++) {
+            scene->Update();
+        }
         
-         
+        deleteSceneFunction(scene);
+        deleteRegistryFunction(registry);
         
         
+        auto endTime = std::chrono::high_resolution_clock::now();
+        
+        auto diff = endTime - startTime;
+        
+        
+        
+        std::chrono::microseconds d = std::chrono::duration_cast< std::chrono::microseconds >( diff );
+        
+        std::cout << "Milliseconds : " << (float)d.count() / 1000000 << std::endl;
+
         //std::chrono::nanoseconds sleepTime(100000);
         //std::this_thread::sleep_for(sleepTime);
         
-        break;
     }
         
     return 0;

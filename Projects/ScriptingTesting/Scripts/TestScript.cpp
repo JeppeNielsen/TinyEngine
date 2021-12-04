@@ -19,6 +19,10 @@ struct Velocity {
     float y;
 };
 
+struct Renderable {
+    int imageNo;
+};
+
 struct VelocitySystem : System<Position, const Velocity> {
   
     void Update(Position& position, const Velocity& velocity) {
@@ -30,6 +34,17 @@ struct VelocitySystem : System<Position, const Velocity> {
 
 };
 
+struct RenderSystem : System<const Position, const Renderable> {
+  
+    void Update(const Position& position, const Renderable& renderable) {
+        
+        
+        std::cout<<"RenderSystem : x: "<< position.x << ", imageNo: "<<renderable.imageNo << std::endl;
+    }
+
+};
+
+/*
 struct PositionSystem : System<Position>, SystemDependencies<VelocitySystem> {
     
     
@@ -65,3 +80,4 @@ struct AccSystem : System<Velocity> {
     
 };
 
+*/
