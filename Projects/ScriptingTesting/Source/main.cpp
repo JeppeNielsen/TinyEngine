@@ -78,7 +78,7 @@ int main() {
     ScriptingContext parserContext = contextFactory.CreateContext();
     parserContext.cppFiles.push_back("Scripts/TestScript.cpp");
     
-    ScriptingParser parser(clangPath);
+    ScriptingParser parser;
     
     ScriptingParserResult parserResult;
     if (!parser.Parse(parserContext, [](auto s) { return true; }, parserResult)) {
@@ -101,9 +101,6 @@ int main() {
     context.cppFiles.push_back("Scripts/TestScript.cpp");
     context.cppFiles.push_back("ScriptMain.cpp");
     
-    
-        
-       
         
         if(!engine.Compile(context)) {
             std::cout << " compilation failed:" << std::endl;
