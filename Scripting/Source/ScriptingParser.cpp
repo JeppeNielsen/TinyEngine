@@ -221,16 +221,17 @@ std::vector<std::string> ScriptingParser::CreateDefaultArguments() {
     
     std::vector<std::string> arguments;
     
-    std::string sdkPath = pipe_to_string("xcrun --sdk macosx --show-sdk-path") + "/usr/include";
+    std::string sdkPath = pipe_to_string("xcrun --sdk macosx --show-sdk-path");
+    std::string sdkInclude = sdkPath + "/usr/include";
+    std::string clangDir = sdkPath + "/../../usr/";
     
-    arguments.push_back("-v");
+    //arguments.push_back("-v");
     arguments.push_back("-std=c++17");
-    arguments.push_back("-stdlib=libc++");
     arguments.push_back("-fno-rtti");
     arguments.push_back("-Wno-nullability-completeness");
-    arguments.push_back("-I" + clangLocation + "/include/c++/v1");
-    arguments.push_back("-I" + clangLocation + "/lib/clang/" + GetFirstFolder(clangLocation + "/lib/clang") + "/include");
-    arguments.push_back("-I" + sdkPath);
+    arguments.push_back("-I" + clangDir + "/include/c++/v1");
+    arguments.push_back("-I" + clangDir + "/lib/clang/" + GetFirstFolder(clangDir + "/lib/clang") + "/include");
+    arguments.push_back("-I" + sdkInclude);
     
     return arguments;
 }
