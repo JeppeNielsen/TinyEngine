@@ -17,10 +17,6 @@ using namespace Tiny;
 
 CXChildVisitResult parseCode(CXCursor cursor, CXCursor parent, CXClientData clientData);
 
-ScriptingParser::ScriptingParser(const std::string& clangPath) : clangLocation(clangPath) {
-    
-}
-
 bool ScriptingParser::Parse(const ScriptingContext& context, const std::function<bool(const std::string&)>& predicate, ScriptingParserResult& result) {
     
     std::vector<std::string> contextArguments = GetArguments(context);

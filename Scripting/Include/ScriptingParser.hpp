@@ -17,12 +17,10 @@ namespace Tiny {
     class ScriptingParser {
     public:
         
-        ScriptingParser(const std::string& clangPath);        
         bool Parse(const ScriptingContext&, const std::function<bool(const std::string&)>& predicate, ScriptingParserResult& result);
         
     private:
         
-        std::string clangLocation;
         std::vector<std::string> CreateDefaultArguments();
         std::vector<std::string> GetArguments(const ScriptingContext &context);
         std::vector<std::string> defaultArguments;
