@@ -139,8 +139,8 @@ int main() {
         TypeInfo* renderableInfo = getComponentFunction(scene, object1, 1);
         
         FieldInfo& imageNoField = renderableInfo->fields[0];
-        auto* imageNo = imageNoField.GetField<float>();
-        *imageNo = 12.0f;
+        auto* imageNo = imageNoField.GetField<int>();
+        *imageNo = 12;
         
         
         for (int i=0; i<10; i++) {
