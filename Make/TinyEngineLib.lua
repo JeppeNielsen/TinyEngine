@@ -8,7 +8,6 @@ project "TinyEngine"
    language "C++"
    targetdir "../bin/%{cfg.buildcfg}"
    
-
    files { 
       "../Tiny/**.hpp", 
       "../Tiny/**.cpp",
