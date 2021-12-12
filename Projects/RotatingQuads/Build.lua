@@ -17,7 +17,9 @@ project "RotatingQuads"
    }
 
    sysincludedirs {
-      "../../Tiny/Libs"
+      "../../External/minijson_writer",
+      "../../External/minijson_reader",
+      "../../External/glm"
    }
 
    links { "TinyEngine" }
