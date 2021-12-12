@@ -11,6 +11,7 @@ project "TinyEditor"
    files { 
       "Source/**.cpp",
       "Source/**.hpp",
+      "Source/**.mm",
    }
 
    includedirs {
@@ -32,8 +33,7 @@ project "TinyEditor"
    filter { "system:not windows" }
       links { "Cocoa.framework", "CoreVideo.framework", "OpenGL.framework" }
       files { 
-         "../Tiny/Platform/OSX/**.h", 
-         "../Tiny/Platform/OSX/**.mm", 
+         "../Tiny/Platform/OSX/**.h"
       }
       linkoptions { 
          "-L../../Scripting/Libs -lclang -lcling",

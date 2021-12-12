@@ -6,14 +6,17 @@
 //
 
 #include "IState.hpp"
+#include "Context/EditorContext.hpp"
 
 namespace TinyEditor {
 
-class MainWindow : public Tiny::IState {
+class MainState : public Tiny::IState {
 public:
     void Initialize();
     void Update(float dt);
     void Render();
+private:
+    EditorContext context;
 };
 
 }

@@ -6,13 +6,13 @@
 //
 
 #include "Engine.hpp"
-#include "MainWindow.hpp"
+#include "MainState.hpp"
 
 using namespace Tiny;
 
 int main() {
     Engine e;
-    e.Start<TinyEditor::MainWindow>();
+    e.Start<TinyEditor::MainState>();
     
     return EXIT_SUCCESS;
 }
