@@ -1,1 +1,1 @@
-../../Make/Premake/premake5 --file=Build.lua gmake2	
+../../Make/Premake/premake5 --file=UnitTests.lua gmake2	
