@@ -1,4 +1,6 @@
 
+require "clion"
+
 location "Build"
 
 include "../../Make/TinyEngineLib.lua"
@@ -13,7 +15,8 @@ project "RotatingQuads"
    }
 
    includedirs {
-      "../../Tiny/**"
+      "../../Tiny/**",
+      "../../External/glm"
    }
 
    sysincludedirs {
