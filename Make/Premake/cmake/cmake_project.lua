@@ -40,6 +40,10 @@ function m.files(prj)
 	}, true)
 end
 
+local function ends_with(str, ending)
+   return ending == "" or str:sub(-#ending) == ending
+end
+
 --
 -- Project: Generate the cmake project file.
 --
@@ -122,7 +126,16 @@ function m.generate(prj)
 		  _p(1, '-Wl,--start-group')
 		end
 		for a, link in ipairs(config.getlinks(cfg, "dependencies", "object")) do
-			_p(1, '$<$<CONFIG:%s>:%s>', cmake.cfgname(cfg), link.linktarget.basename)
+
+			if ends_with(link.linktarget.basename, ".framework") then
+
+				_p(1, '"-framework %s"', link.linktarget.basename)
+
+			else
+
+				_p(1, '$<$<CONFIG:%s>:%s>', cmake.cfgname(cfg), link.linktarget.basename)
+
+			end
 		end
 		if uselinkgroups then
 		  -- System libraries don't depend on the project
@@ -130,7 +143,18 @@ function m.generate(prj)
 		  _p(1, '-Wl,--start-group')
 		end
 		for _, link in ipairs(config.getlinks(cfg, "system", "fullpath")) do
-			_p(1, '$<$<CONFIG:%s>:%s>', cmake.cfgname(cfg), link)
+			
+			if ends_with(link, ".framework") then
+
+				_p(1, '"-framework %s"', string.gsub(link,".framework", ""))
+
+			else
+
+				_p(1, '$<$<CONFIG:%s>:%s>', cmake.cfgname(cfg), link)
+
+			end
+
+
 		end
 		if uselinkgroups then
 		  _p(1, '-Wl,--end-group')
