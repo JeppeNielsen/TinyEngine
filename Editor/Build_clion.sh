@@ -1,0 +1,1 @@
+../Make/Premake/premake5 --file=Editor.lua clion

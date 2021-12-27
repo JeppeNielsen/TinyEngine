@@ -5,7 +5,6 @@
 //  Created by Jeppe Nielsen on 11/10/2020.
 //  Copyright © 2020 Jeppe Nielsen. All rights reserved.
 //
-
 #pragma once
 #include "ECS.hpp"
 #include "RenderSystem.hpp"
@@ -19,24 +18,15 @@
 #include "DraggableSystem.hpp"
 #include "QuadMeshSystem.hpp"
 #include "WorldBoundingBoxSystem.hpp"
+#include "Windows/WindowSystem.hpp"
+#include "Windows/WindowDragCancelSystem.hpp"
 
 using namespace Tiny;
+using namespace TinyEditor;
 
-struct Rotator {
-    float speed;
-};
-
-struct RotatorSystem : System<LocalTransform, const Rotator> {
-    void Update(LocalTransform& local, const Rotator& rotator) {
-        local.rotation *= glm::angleAxis(glm::radians(rotator.speed), vec3(0,0,1));
-    }
-    
-    constexpr int EnableConcurrency() { return 5000; }
-};
-
-
-using EditorComponentTypes = ComponentTypes<
+using EditorComponents = ComponentTypes<
     Input,
+    Window,
     Hierarchy,
     LocalTransform, WorldTransform,
     LocalBoundingBox, WorldBoundingBox,
@@ -45,8 +35,7 @@ using EditorComponentTypes = ComponentTypes<
     Mesh,
     QuadMesh,
     Sizeable,
-    Camera,
-    Rotator
+    Camera
 >;
 
 using EditorSystems = SystemTypes<
@@ -57,9 +46,9 @@ using EditorSystems = SystemTypes<
     PickableSystem, PickableOctreeSystem,
     DraggableSystem,
     QuadMeshSystem,
-    RenderSystem,
-    RotatorSystem
+    WindowSystem,
+    WindowDragCancelSystem
 >;
 
-using EditorRegistryType = Registry<EditorComponentTypes>;
-using EditorSceneType = Scene<EditorRegistryType, EditorSystems>;
+using EditorRegistry = Registry<EditorComponents>;
+using EditorScene = Scene<EditorRegistry, EditorSystems>;

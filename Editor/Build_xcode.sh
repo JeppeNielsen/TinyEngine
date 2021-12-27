@@ -1,1 +1,1 @@
-../Make/Premake/premake5 --file=Build.lua xcode4
+../Make/Premake/premake5 --file=Editor.lua xcode4

@@ -9,14 +9,17 @@
 #pragma once
 
 #include "ECS.hpp"
-#include "Window.hpp"
+#include "TinyWindow.hpp"
 #include "EditorWindow.hpp"
 #include "WorldTransform.hpp"
 #include "Sizeable.hpp"
-#include "../Registry/EditorRegistry.hpp"
+#include "InputDevice.hpp"
+#include "VertexRenderer.hpp"
+#include "Vertex.hpp"
 #include <map>
 
 namespace TinyEditor {
+
 struct WindowSystem : Tiny::SystemChangedGameObject<const Window, const Tiny::WorldTransform, const Tiny::Sizeable>,
 Tiny::SceneModifier<Window> {
 public:
@@ -30,11 +33,11 @@ public:
     Windows windows;
     
     EditorWindow mainWindow;
-    EditorRegistryType* registry;
-    InputDevice* inputDevice;
+    //EditorRegistry* registry;
+    //Tiny::InputDevice* inputDevice;
     
-    VertexRenderer<Vertex>* vertexRenderer;
-    Shader<Vertex>* shader;
+    //Tiny::VertexRenderer<Tiny::Vertex>* vertexRenderer;
+    //Tiny::Shader<Tiny::Vertex>* shader;
     
 };
 }

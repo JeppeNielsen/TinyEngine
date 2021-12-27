@@ -14,9 +14,11 @@ namespace TinyEditor {
     class Window;
     class EditorWindow {
     public:
-        
+
+        using WindowHandle = void*;
+
         void CreateMain(const std::string& title, int width, int height);
-        void CreateTool(const std::string& title);
+        void CreateTool(WindowHandle mainWindow, const std::string& title);
         
         void Close();
         
@@ -31,9 +33,10 @@ namespace TinyEditor {
         
         void Update();
         void Render(ivec2 viewport);
+
+        WindowHandle GetHandle();
         
     private:
-        using WindowHandle = void*;
         WindowHandle window = nullptr;
         WindowHandle windowDelegate = nullptr;
         WindowHandle view = nullptr;

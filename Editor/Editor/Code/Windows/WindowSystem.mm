@@ -20,9 +20,8 @@ void WindowSystem::Update(GameObject gameObject, const Window &window, const Tin
     auto& editorWindow = windows[gameObject];
     if (!editorWindow.IsCreated()) {
         editorWindow.size = ivec2(sizeable.size.x, sizeable.size.y);
-        editorWindow.CreateTool("Tool window");
+        editorWindow.CreateTool(mainWindow.GetHandle(), "Tool window");
         editorWindow.color = window.color;
-
        //editorWindow.editorScene = new EditorScene(*registry, *inputDevice, vertexRenderer, shader);
     }
     

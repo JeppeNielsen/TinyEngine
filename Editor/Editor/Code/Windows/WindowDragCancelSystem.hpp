@@ -9,7 +9,7 @@
 #pragma once
 
 #include "ECS.hpp"
-#include "Window.hpp"
+#include "TinyWindow.hpp"
 #include "EditorWindow.hpp"
 #include "Draggable.hpp"
 #include "Sizeable.hpp"

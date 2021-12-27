@@ -76,6 +76,7 @@ static NSOpenGLContext* sharedContext = nullptr;
 void EditorWindow::CreateMain(const std::string& title, int width, int height) {
     
     NSWindow *myWindow = [[NSWindow alloc] init];
+
     myWindow.title = [[NSString alloc]initWithUTF8String:title.c_str()];
 
     NSUInteger masks = NSWindowStyleMaskTitled |
@@ -113,21 +114,26 @@ void EditorWindow::CreateMain(const std::string& title, int width, int height) {
     
     sharedContext = [[NSOpenGLContext alloc]initWithFormat:fmt shareContext:NULL];
     [sharedContext makeCurrentContext];
-    
+
+    [NSApp activateIgnoringOtherApps: true];
+
+    window = myWindow;
 }
 
-void EditorWindow::CreateTool(const std::string& title) {
+void EditorWindow::CreateTool(EditorWindow::WindowHandle mainWindow, const std::string& title) {
     
     NSWindow *myWindow = [[NSWindow alloc] init];
     myWindow.title = [[NSString alloc]initWithUTF8String:title.c_str()];
 
-    [myWindow setStyleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable];
+    [myWindow setStyleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable | NSWindowStyleMaskBorderless];
     [myWindow setBackgroundColor:[NSColor whiteColor]];
 
     NSRect frame = NSMakeRect(0, 0, 100, 100);
     [myWindow  setFrame:frame display:NO];
-    
-    [[NSApp mainWindow] addChildWindow:myWindow ordered:NSWindowAbove];
+
+    NSWindow* mainWindowPtr = (__bridge NSWindow*)mainWindow;
+
+    [mainWindowPtr addChildWindow:myWindow ordered:NSWindowAbove];
     [myWindow setMovable:false];
     
     window = (__bridge WindowHandle)myWindow;
@@ -216,9 +222,13 @@ void EditorWindow::Update() {
 
 void EditorWindow::Render(ivec2 viewport) {
     glViewport(0, 0, viewport.x, viewport.y);
-    glClearColor(color.r,color.g, color.b, 0);
+    glClearColor(color.r,color.g, 1, 0);
     glClear(GL_COLOR_BUFFER_BIT);
     //editorScene->Render(viewport);
     
     glFlush();
+}
+
+EditorWindow::WindowHandle EditorWindow::GetHandle() {
+    return window;
 }
