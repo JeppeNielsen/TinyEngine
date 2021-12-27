@@ -226,6 +226,10 @@ function m.generate(prj)
 			_p('endif()')
 		end
 
+		for _, command in ipairs(cfg.postbuildcommands) do
+			_p('execute_process(COMMAND %s)', command);
+		end
+
 		-- precompiled headers
 		-- copied from gmake2_cpp.lua
 		if not cfg.flags.NoPCH and cfg.pchheader then
