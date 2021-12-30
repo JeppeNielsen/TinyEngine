@@ -320,8 +320,10 @@ void Window::StartLoop(MainLoopData mainLoopData) {
 }
 
 void Window::PreRender() {
-    
-    glViewport(0, 0, globalWindowWidth * 2, globalWindowHeight * 2);
+    NSScreen* scr = [[staticView window] screen];
+    float scalingFactor = [scr backingScaleFactor];
+
+    glViewport(0, 0, globalWindowWidth * scalingFactor, globalWindowHeight * scalingFactor);
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_CULL_FACE);
