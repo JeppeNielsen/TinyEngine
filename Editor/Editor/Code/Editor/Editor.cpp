@@ -16,8 +16,6 @@ Editor::Editor() : scene(registry), windowFactory(scene) {
     
 }
 
-static int counter = 0;
-
 void Editor::Initialize() {
 
     context.ProjectRoot = "/Users/jeppe/Jeppes/TinyEngine/Editor/TestProjects/Pong";
@@ -63,13 +61,6 @@ void Editor::Initialize() {
 }
 
 void Editor::Update(float dt) {
-
-    if (counter>100) {
-        windowFactory.CreateWindow(windowCamera, {200,0}, {200,200});
-        counter = -1000000;
-    }
-    counter++;
-
     scene.Update();
     registry.ResetChanged();
 }
