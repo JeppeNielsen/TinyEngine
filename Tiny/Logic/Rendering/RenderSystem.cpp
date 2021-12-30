@@ -40,8 +40,7 @@ void RenderSystem::Initialize(RenderOctreeSystem& octreeSystem) {
 }
 
 void RenderSystem::Update(const WorldTransform &transform, const Camera &camera) {
-    
-    const mat4x4 viewProjection = transform.worldInverse * camera.GetProjection();
+    const mat4x4 viewProjection = camera.GetProjection() *  transform.worldInverse;
     
     BoundingFrustum frustum;
     frustum.SetFromViewProjection(viewProjection);
@@ -82,9 +81,8 @@ void RenderSystem::Update(const WorldTransform &transform, const Camera &camera)
 }
 
 void RenderSystem::RenderScene() {
-    
-    const mat4x4 viewProjection = cameraTransform.worldInverse * camera.GetProjection();
-    
+    const mat4x4 viewProjection = camera.GetProjection() * cameraTransform.worldInverse;
+
     shader->Use();
     shader->SetViewProjection(glm::value_ptr(viewProjection));
     
