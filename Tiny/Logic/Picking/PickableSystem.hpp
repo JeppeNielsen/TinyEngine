@@ -36,7 +36,7 @@ struct PickableSystem :
         void TouchUp(const WorldTransform& transform, const Camera& camera, const Input& input, const InputTouch& touch);
         
         PickableOctreeSystem* octreeSystem;
-        ivec2 screenSize;
+        std::function<ivec2()> screenSizeFunction;
         
         struct DownPickable {
             InputTouch touch;

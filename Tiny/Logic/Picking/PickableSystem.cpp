@@ -39,7 +39,7 @@ void PickableSystem::TouchDown(const WorldTransform &transform, const Camera &ca
     
     auto touchPosition = input.touchPosition[touch.index];
     
-    Ray ray = camera.GetRay(transform, screenSize, touchPosition.position);
+    Ray ray = camera.GetRay(transform, screenSizeFunction(), touchPosition.position);
     
     std::vector<GameObject> downs;
     octreeSystem->Query(ray, downs);
@@ -71,7 +71,7 @@ void PickableSystem::TouchUp(const WorldTransform &transform, const Camera &came
     
     auto touchPosition = input.touchPosition[touch.index];
     
-    Ray ray = camera.GetRay(transform, screenSize, touchPosition.position);
+    Ray ray = camera.GetRay(transform, screenSizeFunction(), touchPosition.position);
     
     std::vector<GameObject> ups;
     octreeSystem->Query(ray, ups);

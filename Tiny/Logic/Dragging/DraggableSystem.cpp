@@ -34,7 +34,7 @@ void DraggableSystem::Update(Draggable &draggable,
     }
     
     if (draggable.isDragging) {
-        auto ray = draggable.dragEvent.camera->GetRay(*draggable.dragEvent.cameraTransform, screenSize, draggable.dragEvent.input->touchPosition[draggable.dragEvent.touch.index].position);
+        auto ray = draggable.dragEvent.camera->GetRay(*draggable.dragEvent.cameraTransform, screenSizeFunction(), draggable.dragEvent.input->touchPosition[draggable.dragEvent.touch.index].position);
         
         float distance;
      

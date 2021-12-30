@@ -25,6 +25,6 @@ namespace Tiny {
                     const WorldTransform& worldTransform,
                     LocalTransform& localTransform);
         
-        ivec2 screenSize;
+         std::function<ivec2()> screenSizeFunction;
     };
 }
