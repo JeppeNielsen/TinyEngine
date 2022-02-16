@@ -12,15 +12,14 @@
 #include "minijson_reader.hpp"
 #include <sstream>
 #include <map>
-#include "Math.hpp"
 
 namespace Tiny {
     template<typename T, typename I = void>
     struct FieldSerializer {
         static void Serialize(minijson::object_writer& writer, const std::string& name, const T& field) {
-            std::stringstream s;
-            s<<field;
-            writer.write(name.c_str(), s.str());
+            //std::stringstream s;
+            //s<<field;
+            //writer.write(name.c_str(), s.str());
         }
         
         static void Deserialize(minijson::istream_context& context, minijson::value& value, T& field) {
@@ -190,28 +189,6 @@ namespace Tiny {
         }
     };
 
-    template<>
-    struct FieldSerializer<glm::vec2> {
-        static void Serialize(minijson::object_writer& writer, const std::string& name, const glm::vec2& field) {
-            writer.write(name.c_str(), field.x);
-        }
-        
-        static void Deserialize(minijson::istream_context& context, minijson::value& value, glm::vec2& field) {
-            if (value.type() != minijson::Number) return;
-            field.x = (float)value.as_double();
-        }
-    };
-
-    template<>
-    struct FieldSerializer<glm::vec3> {
-        static void Serialize(minijson::object_writer& writer, const std::string& name, const glm::vec3& field) {
-            writer.write(name.c_str(), field.x);
-        }
-        
-        static void Deserialize(minijson::istream_context& context, minijson::value& value, glm::vec3& field) {
-            if (value.type() != minijson::Number) return;
-            field.x = (float)value.as_double();
-        }
-    };
+    
 
 }
