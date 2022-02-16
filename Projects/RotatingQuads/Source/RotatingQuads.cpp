@@ -164,7 +164,7 @@ struct State : IState {
         
         scene = std::make_shared<Scene>(registry);
         scene->GetSystem<InputSystem>().SetDevice(device.Input.Device());
-        scene->GetSystem<PickableSystem>().screenSize = device.Screen.Size;
+        scene->GetSystem<PickableSystem>().screenSizeFunction = [this]() { return device.Screen.Size; };
         scene->GetSystem<RenderSystem>().shader = &shader;
         scene->GetSystem<RenderSystem>().vertexRenderer = vertexRenderer;
         
