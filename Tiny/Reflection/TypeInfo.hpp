@@ -31,7 +31,7 @@ namespace Tiny {
         }
         
         const FieldCollection& Fields() const;
-    private:
+    public:
         std::string name;
         
         FieldCollection fields;
