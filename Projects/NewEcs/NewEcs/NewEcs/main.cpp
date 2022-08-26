@@ -25,20 +25,37 @@ struct Velocity {
     float vy = 1;
 };
 
+struct Mesh {
+    std::vector<Position> vertices;
+    std::vector<int> indicies;
+};
+
+struct Renderable {
+    int image;
+};
+
 struct VelocitySystem {
     
     void Step(Position& position, const Velocity& velocity) {
         position.x += velocity.vx;
         position.y += velocity.vy;
-        std::cout << "VelocitySystem::Step: position.x = " << position.x << ", position.y = " << position.y<< " position.addr:" << &position << " position.addr:" << &velocity <<std::endl;
+        std::cout << "VelocitySystem::Step: position.x = " << position.x << ", position.y = " << position.y<< " position.addr:" << &position << " velocity.addr:" << &velocity <<std::endl;
     }
     
 };
 
 
+struct RenderSystem {
+  
+    void Step(const Mesh& mesh, const Renderable& renderable, const Position& position) {
+        std::cout << "RenderSystem::Step: position.x = " << position.x << ", position.y = " << position.y<< " position.addr:" << &position << " renderable.addr:" << &renderable <<std::endl;
+    }
+    
+};
+
 struct PositionSystem {
     
-    void Step(Position& position) {
+    void Step(const Position& position) {
         std::cout << "PositionSystem::Step" << " addr:" << &position << std::endl;
     }
     
@@ -46,7 +63,11 @@ struct PositionSystem {
 
 struct BrakeSystem {
     
-    void Step(const Velocity& velocity) {
+    void Step(Velocity& velocity) {
+        
+        velocity.vx *= 0.95f;
+        velocity.vy *= 0.95f;
+        
         std::cout << "BrakeSystem::Step" << " addr:" << &velocity << std::endl;
     }
     
@@ -80,7 +101,7 @@ struct ArchetypeContainer : ArchetypeContainerBase {
     using MethodPtr = Ret(Type::*)(Args...);
     
     template <typename Ret, typename Type, typename... Args>
-    void Invoke(MethodPtr<Ret, Type, Args...> ptr, Type* instance, int index)
+    void Invoke(MethodPtr<Ret, Type, Args...> ptr, Type* instance)
     {
         for (int i=0; i<components.size(); ++i) {
             std::invoke(ptr, instance, (std::get<std::remove_const_t<std::remove_reference_t<Args>>>(components[i]))...);
@@ -173,79 +194,37 @@ struct World {
             const auto components = std::get<taskIndex>(systems.archetypes);
             
             TupleHelper::Iterate(components, [&](auto archetypeContainer) {
-                archetypeContainer->Invoke(&SystemType::Step, &system, 0);
+                archetypeContainer->Invoke(&SystemType::Step, &system);
             });
         });
     }
     
 };
 
-
-struct Transform {
-    int pos;
-};
-
-struct Sprite {
-    int image;
-};
-
-
 using Types = ArchetypeList<
     Archetype<Position>,
     Archetype<Position, Velocity>,
     Archetype<Velocity>,
-    Archetype<Velocity, Transform>
+    Archetype<Position, Renderable, Mesh>,
+    Archetype<Position, Renderable, Mesh, Velocity>
 >;
 
-using Systems = SystemsList<Types, VelocitySystem, PositionSystem, BrakeSystem>;
-//using Systems = SystemsList<Types, PositionSystem>;
-
-struct RenderSystem {
-    void Render(const Transform& t, Sprite& s) {
-        std::cout << "RenderSystem : Transform.pos = " << t.pos << "  Sprite.image = " << s.image << "\n";
-    }
-    
-};
-
+using Systems = SystemsList<Types, VelocitySystem, PositionSystem, BrakeSystem, RenderSystem>;
 
 int main() {
-    
-    constexpr auto tuple = std::tuple<Transform, Sprite, int>();
-    
-    constexpr auto result = std::apply([](auto...ts) {
-        return std::tuple_cat(std::conditional_t<(!std::is_same<decltype(ts), Transform>()),
-                              std::tuple<decltype(ts)*>,
-                              std::tuple<>>{}...);
-    }, tuple);
-    
-    
-    RenderSystem r;
-    
-    Transform tr { 123 };
-    Sprite sp { 2222};
-    
-    auto invokeTuple = std::tuple_cat(std::make_tuple(&r), std::make_tuple(tr), std::make_tuple(sp));
-    
-    std::apply(&RenderSystem::Render, invokeTuple);
-    
-    std::invoke(&RenderSystem::Render, &r, tr, sp);
-    
-    using Components = std::tuple<Transform, Sprite>;
-    
-    static_assert(all_parameters_in_tuple<Components>(&RenderSystem::Render), "UH OH");
-    
     
     Registry<Types> registry;
     
     World<Registry<Types>, Systems> world(registry);
     
-    
-    
-    
     auto go1 = registry.CreateGameObject(0);
     auto go2 = registry.CreateGameObject(1);
     auto go22 = registry.CreateGameObject(1);
     auto go3 = registry.CreateGameObject(2);
+    auto sprite = registry.CreateGameObject(3);
+    auto velocitySprite = registry.CreateGameObject(4);
+    auto velocitySprite2 = registry.CreateGameObject(4);
+    
     
     std::get<0>(std::get<2>(registry.archetypes.achetypes).components[1]).vx = 3;
     
@@ -253,12 +232,9 @@ int main() {
     
     registry.RemoveGameObject(go2);
     
-    
     std::cout << "go1.Type = " << go1.Type() << "\n";
     std::cout << "go2.Type = " << go2.Type() << "\n";
     std::cout << "go3.Type = " << go3.Type() << "\n";
 
-    
-    
     return 0;
 }
