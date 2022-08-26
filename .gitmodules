@@ -7,3 +7,9 @@
 [submodule "External/glm"]
 	path = External/glm
 	url = https://github.com/JeppeNielsen/glm.git
+[submodule "External/googletest"]
+	path = External/googletest
+	url = https://github.com/google/googletest.git
+[submodule "External/taskflow"]
+	path = External/taskflow
+	url = https://github.com/taskflow/taskflow.git
