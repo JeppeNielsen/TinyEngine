@@ -13,7 +13,7 @@
 namespace Tiny {
     class GameObjectDatabase {
     public:
-        GameObjectDatabase(std::uint32_t typeIndex);
+        void SetTypeIndex(const std::uint32_t typeIndex);
         bool IsValid(const GameObject gameObject) const;
         GameObject Create();
         void Remove(const GameObject gameObject);
@@ -22,6 +22,6 @@ namespace Tiny {
         std::vector<GameObject> objects;
         std::size_t available {};
         std::uint32_t next {};
-        std::uint32_t typeIndex;
+        std::uint32_t typeIndex = 0;
     };
 }

@@ -30,4 +30,18 @@ TEST(GameObject, Type) {
     EXPECT_EQ(gameOject.Type(), EXPECTED_TYPE);
 }
 
+TEST(GameObject, Equals) {
+    const GameObject instance1 = GameObject(0,0,0);
+    const GameObject instance2 = GameObject(0,0,0);
+    
+    EXPECT_EQ(instance1, instance2);
+}
+
+TEST(GameObject, NotEquals) {
+    const GameObject instance1 = GameObject(0,0,0);
+    const GameObject instance2 = GameObject(1,0,0);
+    
+    EXPECT_NE(instance1, instance2);
+}
+
 }

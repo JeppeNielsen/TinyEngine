@@ -15,8 +15,6 @@ namespace Tiny {
 class GameObjectCollection {
 public:
     
-    GameObjectCollection(std::uint32_t typeIndex);
-    
     using Objects = std::vector<GameObject>;
     using Indicies = std::vector<std::uint32_t>;
 
@@ -25,10 +23,10 @@ public:
     bool Contains(const GameObject object) const;
     std::size_t Get(const GameObject object) const;
     void Clear();
+    GameObject Last();
 
     Indicies indicies;
     Objects objects;
-    std::uint32_t typeIndex;
 };
     
 }

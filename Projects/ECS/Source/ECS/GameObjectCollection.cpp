@@ -13,8 +13,6 @@ using namespace Tiny;
 
 const auto NullIndex = std::numeric_limits<std::uint32_t>::max();
 
-GameObjectCollection::GameObjectCollection(std::uint32_t typeIndex) : typeIndex(typeIndex) {}
-
 void GameObjectCollection::Add(const GameObject object) {
     assert(!Contains(object));
     const auto objectIndex = object.Index();
@@ -55,3 +53,6 @@ void GameObjectCollection::Clear() {
     objects.clear();
 }
 
+GameObject GameObjectCollection::Last() {
+    return objects.back();
+}

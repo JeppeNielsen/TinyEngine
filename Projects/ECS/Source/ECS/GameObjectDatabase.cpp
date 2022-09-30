@@ -10,7 +10,9 @@
 
 using namespace Tiny;
 
-GameObjectDatabase::GameObjectDatabase(std::uint32_t typeIndex) : typeIndex(typeIndex) {}
+void GameObjectDatabase::SetTypeIndex(const std::uint32_t typeIndex) {
+    this->typeIndex = typeIndex;
+}
 
 bool GameObjectDatabase::IsValid(const GameObject gameObject) const {
     const auto pos = gameObject.Index();
