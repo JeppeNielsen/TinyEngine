@@ -13,7 +13,7 @@ namespace Tiny {
 template<typename ...T>
 struct ArchetypeCollection {
     using Archetypes = std::tuple<T...>;
-    Archetypes achetypes;
+    Archetypes archetypes;
     
     static constexpr int Size = std::tuple_size_v<Archetypes>;
     

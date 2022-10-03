@@ -57,8 +57,9 @@ struct ArchetypeContainer : ArchetypeContainerBase {
     
     template <typename Ret, typename Type, typename... Args>
     void Invoke(MethodPtr<Ret, Type, Args...> ptr, Type* instance) {
-        for (int i=0; i<components.size(); ++i) {
-            std::invoke(ptr, instance, (std::get<std::remove_const_t<std::remove_reference_t<Args>>>(components[i]))...);
+        for (int i = 0; i < components.size(); ++i) {
+            auto& component = components[i];
+            std::invoke(ptr, instance, (std::get<std::remove_const_t<std::remove_reference_t<Args>>>(component))...);
         }
     }
     
