@@ -1,0 +1,1 @@
+../../Make/Premake/premake5 --file=UnitTests.lua gmake2	
