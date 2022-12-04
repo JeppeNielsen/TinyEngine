@@ -23,6 +23,6 @@ void LogicTests::Run() {
     OctreeSystemTests octreeSystemTests;
     octreeSystemTests.Run();
     std::cout << "\n";
-    //RenderSystemTests renderSystemTests;
-    //renderSystemTests.Run();
+    RenderSystemTests renderSystemTests;
+    renderSystemTests.Run();
 }

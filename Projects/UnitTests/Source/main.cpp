@@ -20,6 +20,5 @@ int main() {
     LogicTests logicTests;
     logicTests.Run();
     
-    
     return 0;
 }
