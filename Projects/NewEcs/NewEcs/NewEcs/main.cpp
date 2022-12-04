@@ -130,7 +130,7 @@ struct ArchetypeList {
     
     template<typename SystemType>
     static constexpr auto GetArcheTypesMatchesTuple() {
-        return std::tuple<decltype(GetArcheTypesMatches<SystemType>())> { GetArcheTypesMatches<SystemType>() };
+        return decltype(GetArcheTypesMatches<SystemType>()) { GetArcheTypesMatches<SystemType>() };
     }
     
 };
@@ -139,7 +139,7 @@ template<typename Archetypes, typename ...T>
 struct SystemsList {
     
     static constexpr auto GetSystemTuples() {
-        return std::tuple_cat(Archetypes::template GetArcheTypesMatchesTuple<T>()...);
+        return std::tuple_cat(std::tuple<decltype(Archetypes::template GetArcheTypesMatchesTuple<T>())> {Archetypes::template GetArcheTypesMatchesTuple<T>()}...);
     }
     
     using Systems = std::tuple<T...>;
