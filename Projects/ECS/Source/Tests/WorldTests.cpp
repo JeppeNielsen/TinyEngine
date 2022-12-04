@@ -51,11 +51,11 @@ TEST(World, Step) {
     
     auto& components = registry.GetComponents<1>(bullet);
     std::get<1>(components).vx = 1;
+    std::get<0>(components).x = 1;
     
-    
-    EXPECT_EQ(std::get<0>(components).x, 0);
-    world.Step();
     EXPECT_EQ(std::get<0>(components).x, 1);
+    world.Step();
+    EXPECT_EQ(std::get<0>(components).x, 2);
 }
 
 

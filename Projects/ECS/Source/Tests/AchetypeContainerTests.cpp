@@ -133,5 +133,45 @@ TEST(ArchetypeContainer, Invoke) {
     
 }
 
+template<typename T>
+struct Reference {
+    T val;
+    constexpr operator T&() { return val; }
+    constexpr operator T() const { return val; }
+};
+
+TEST(ArchetypeContainer, ReferenceComponent) {
+    
+    const int EXPECTED_VALUE = 123;
+    
+    struct Renderable {
+        int meshId;
+    };
+    
+    static int receivedValue = 0;
+    
+    struct RenderSystem {
+        void Step(Renderable& r) {
+            receivedValue = r.meshId;
+        }
+    };
+    
+    
+    ArchetypeContainer<Renderable> assetContainer;
+    ArchetypeContainer<ReferenceComponent<Renderable>> worldContainer;
+    
+    auto asset = assetContainer.Create();
+    auto instance = worldContainer.Create();
+    std::get<ReferenceComponent<Renderable>>(worldContainer.GetComponents(instance)).value.meshId = EXPECTED_VALUE;
+    
+    RenderSystem renderSystem;
+    
+    worldContainer.Invoke(&RenderSystem::Step, &renderSystem);
+    
+    
+    EXPECT_EQ(EXPECTED_VALUE, receivedValue);
+}
+
+
 
 }
