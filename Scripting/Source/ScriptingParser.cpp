@@ -17,6 +17,10 @@ using namespace Tiny;
 
 CXChildVisitResult parseCode(CXCursor cursor, CXCursor parent, CXClientData clientData);
 
+ScriptingParser::ScriptingParser(const std::string& clangLocation) : clangLocation(clangLocation) {
+    
+}
+
 bool ScriptingParser::Parse(const ScriptingContext& context, const std::function<bool(const std::string&)>& predicate, ScriptingParserResult& result) {
     
     std::vector<std::string> contextArguments = GetArguments(context);
@@ -217,17 +221,19 @@ std::vector<std::string> ScriptingParser::CreateDefaultArguments() {
     
     std::vector<std::string> arguments;
     
-    std::string sdkPath = pipe_to_string("xcrun --sdk macosx --show-sdk-path");
-    std::string sdkInclude = sdkPath + "/usr/include";
-    std::string clangDir = sdkPath + "/../../usr/";
+    //std::string sdkPath = pipe_to_string("xcrun --sdk macosx --show-sdk-path");
+    //std::string sdkInclude = sdkPath + "/usr/include";
+    //std::string clangDir = sdkPath + "/../../usr/";
     
     //arguments.push_back("-v");
     arguments.push_back("-std=c++17");
     arguments.push_back("-fno-rtti");
     arguments.push_back("-Wno-nullability-completeness");
-    arguments.push_back("-I" + clangDir + "/include/c++/v1");
-    arguments.push_back("-I" + clangDir + "/lib/clang/" + GetFirstFolder(clangDir + "/lib/clang") + "/include");
-    arguments.push_back("-I" + sdkInclude);
+    arguments.push_back("-I" + clangLocation);
+    
+    //arguments.push_back("-I" + clangDir + "/include/c++/v1");
+    //arguments.push_back("-I" + clangDir + "/lib/clang/" + GetFirstFolder(clangDir + "/lib/clang") + "/include");
+    //arguments.push_back("-I" + sdkInclude);
     
     return arguments;
 }

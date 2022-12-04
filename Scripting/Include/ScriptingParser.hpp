@@ -17,6 +17,8 @@ namespace Tiny {
     class ScriptingParser {
     public:
         
+        ScriptingParser(const std::string& clangLocation);
+        
         bool Parse(const ScriptingContext&, const std::function<bool(const std::string&)>& predicate, ScriptingParserResult& result);
         
     private:
@@ -26,6 +28,8 @@ namespace Tiny {
         std::vector<std::string> defaultArguments;
         std::string GetFirstFolder(const std::string& path);
         std::string pipe_to_string( const char* command );
+        
+        std::string clangLocation;
     };
 }
 

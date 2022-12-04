@@ -28,9 +28,14 @@ struct Vector2 {
 
 };
 
+struct Ball {
+  float x = 3;
+  float y = 2;
+};
+
 
 extern "C" {
-    int GetResult() {
+    int GetResult(int input) {
     
        std::vector<int> bla;
 
@@ -61,8 +66,10 @@ extern "C" {
 
         Vector2 vec = {3,4};
 
+        Ball ball;
+
         //return (int)result.Length() + add(11, 11) + list.item;
-        return (int)vec.Length()+total;
+        return (int)vec.Length() + ball.x + input;
         
     }
 }
